@@ -1,0 +1,95 @@
+define([
+    'knockout',
+    'lodash',
+    'jquery',
+    './formfield.html!text',
+    './formfield.css!css'
+], function (ko, _, $, templateMarkup) {
+
+
+    var p = FormfieldWidget.prototype;
+
+    function FormfieldWidget(params) {
+        var self                = this;
+        this.fielddef           = params.fielddef;
+        this.useInlineErrors    = ko.observable( false || params.useInlineErrors );
+        this.tabindex           = params.tabindex || 0;
+
+        if(!this.fielddef.type) this.fielddef.type = "input";
+
+        if( this.fielddef.type == "select" ) {
+            if( !this.fielddef.optionscaption ) this.fielddef.optionscaption = "general.optionscaption"
+        }
+
+        this.isValid = ko.pureComputed( function () {
+            if(self.fielddef.isValid) {
+                return ko.utils.unwrapObservable(self.fielddef.isValid);
+            } else {
+                return true;
+            }
+        })
+
+        this.errors = ko.pureComputed( function () {
+            var res = "";
+            if(self.fielddef.errors) {
+                var err = self.fielddef.errors();
+                res = _.reduce(err, function (msg, error) {
+                    return msg + window.kopa.translate(error) + "<br>" ;
+                }, "");
+                if(!_.isEmpty(res))console.log( "error",self.fielddef.name,  res );
+            }
+            return res;
+        });
+
+        this.subscriptionForChange = this.fielddef.value.subscribe( function(newValue) {
+            if( self.fielddef.isValid && !self.fielddef.isValid() ) self.fielddef.validate();
+            // console.log( "field changed to ", newValue );
+        });
+    }
+
+
+
+
+
+    /******************
+     *  PUBLIC API
+     ******************/
+
+    p.handleCalendarIconClick = function ( widget, event ) {
+        console.log( "handleCalendarIconClick" );
+        var $icon = $(event.currentTarget);
+        console.log( $icon );
+        var $inputField = $icon.prev('input');
+        $inputField.focus();
+        console.log( "handleCalendarIconClick", $inputField );
+    }
+
+    /******************
+     *  PRIVATE METHODS
+     ******************/
+
+
+
+    p.dispose = function () {
+        console.log( "-- dispose FormfieldWidget --" );
+        this.subscriptionForChange.dispose();
+    };
+
+
+
+    return {
+        viewModel: {
+            createViewModel: function( params, elementInfo ) {
+                var instance = new FormfieldWidget( params );
+                var context = ko.contextFor(elementInfo.element);
+                if( context.$data.registerSubcomponent ) {
+                    context.$data.registerSubcomponent( instance );
+                }
+                return instance;
+            }
+        },
+        template: templateMarkup,
+        synchronous: true,
+        component:'formfield'
+    };
+});

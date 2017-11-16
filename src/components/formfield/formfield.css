@@ -1,0 +1,31 @@
+.form-group {
+  margin-bottom: 30px;
+  position: relative;
+}
+.form-control {
+  height: 50px;
+  box-shadow: none;
+  border-radius: 0;
+  border-color: #cccccc;
+  font-size: 16px;
+}
+label {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.form-control.error {
+  border-color: #d53b0a;
+  background-color: #fee7e0;
+}
+label.error {
+  color: #d53b0a;
+}
+small.error-msg {
+  position: absolute;
+  top: 90px;
+  color: #d53b0a;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
