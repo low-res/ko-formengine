@@ -7,18 +7,20 @@ define([
 
     describe("generic-form component", function(){
 
-        var appViewModel, $testNode, fieldDef1, compVm;
+        var appViewModel, $testNode, fieldDef1, GenericFormClass, testForm;
 
         beforeEach( function () {
-            compVm = comp.viewModel;
+            GenericFormClass = comp.viewModel;
 
             appViewModel = {
-                formFields : ko.observable(),
-                itemToEdit : {}
+                formRows : ko.observableArray(),
+                itemToEdit : {
+                    field1:303
+                }
             };
 
             fieldDef1 = new FieldsCollection( {
-                fields: [ {name:"field1", label:"Label1"} ],
+                fields: [ {name:"field1", label:"Label1", value:123, valueAccessor:'field1'} ],
                 collections: [ {name:"editform", fields:["field1"]} ]
             } );
 
@@ -26,27 +28,28 @@ define([
 
             $testNode = $('<div id="testNode"></div>');
             $('body').append($testNode);
-            $testNode.append("<ko-formengine-form params='fields:formFields, source:itemToEdit'></ko-formengine-form>")
+            $testNode.append("<ko-formengine-form params='formRows:formRows, source:itemToEdit'></ko-formengine-form>")
             ko.applyBindings(appViewModel, $testNode.get(0));
+
+            testForm = new GenericFormClass( {formRows:fieldDef1.getFormRows("editform")} );
         });
 
         it('should create an dummy object with all properties that are defined in fielddefinitions', function () {
-            var formFields = fieldDef1.getCollectionFields("editform");
-            var c = new compVm( {fields:formFields} );
-            expect(c.formValues.field1).toBeDefined();
+            expect(testForm.formValues.field1).toBeDefined();
         });
 
         it("should prefill the formvalues with the corresponding values of the source object", function () {
-            var formFields = fieldDef1.getCollectionFields("editform");
-            var c = new compVm( {fields:formFields, source:{ field1:123 } } );
-            expect(c.formValues.field1).toEqual(12);
+            expect(testForm.formValues.field1).toEqual(123);
         });
 
-        it("should display all formfields for given configuration", function() {
-            var formFields = fieldDef1.getCollectionFields("editform");
+        it("should display all formfields for given configuration", function( done ) {
+            var formFields = fieldDef1.getFormRows("editform");
+            appViewModel.formRows( formFields );
+            setTimeout(function () {
+                console.log( $("#testNode") );
+                done();
+            },500)
 
-            appViewModel.formFields( formFields );
-            console.log( $("#testNode") );
         });
 
         it("should validate all fields on submit", function(){});

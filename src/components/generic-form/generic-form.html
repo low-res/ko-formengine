@@ -1,4 +1,15 @@
 
-<form id={{formId}} data-bind="foreach:fields" class="form-horizontal" enctype="multipart/form-data">
-
+<form id={{formId}} data-bind="foreach:{data:formRows, as:'row'" class="form-horizontal" enctype="multipart/form-data">
+    <div class="row">
+        <!-- ko: foreach:row -->
+        <div class="{{ 'col-md-'+$data.width }}">
+            <formfield params="fielddef:$data.field"></formfield>
+        </div>
+        <!-- /ko -->
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9">
+            <input type="button" value="{{ 'form-submit' | translate }}" data-bind="click:submit">
+        </div>
+    </div>
 </form>
