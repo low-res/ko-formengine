@@ -55,7 +55,7 @@ define([
         _.forEach(this.inputFields, function (i) {
             var def = i.fielddef;
             if(def.name) {
-                o[def.name] = i.value();
+                _.set(o, def.name, i.value());
             }
         });
         return o;
