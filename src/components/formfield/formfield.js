@@ -1,3 +1,4 @@
+/* */
 define([
     'knockout',
     'lodash',
@@ -6,20 +7,24 @@ define([
     './formfield.css!css'
 ], function (ko, _, $, templateMarkup) {
 
-
     var p = FormfieldWidget.prototype;
 
     function FormfieldWidget(params) {
         var self                = this;
+
         this.fielddef           = params.fielddef;
         this.useInlineErrors    = ko.observable( false || params.useInlineErrors );
         this.tabindex           = params.tabindex || 0;
+        this.source             = ko.utils.unwrapObservable(params.source);
 
+        // default form type is input
         if(!this.fielddef.type) this.fielddef.type = "input";
 
+        // every select has a caption
         if( this.fielddef.type == "select" ) {
             if( !this.fielddef.optionscaption ) this.fielddef.optionscaption = "general.optionscaption"
         }
+
 
         this.isValid = ko.pureComputed( function () {
             if(self.fielddef.isValid) {
@@ -41,13 +46,23 @@ define([
             return res;
         });
 
-        this.subscriptionForChange = this.fielddef.value.subscribe( function(newValue) {
-            if( self.fielddef.isValid && !self.fielddef.isValid() ) self.fielddef.validate();
+        // we need an observablefor the input element which holds the current
+        // value. If the fieldefinition does not provide it's own observable
+        // we need to create a new one and fill it with the current value
+        if(this.fielddef.value) this.value = this.fielddef.value
+        else {
+            this.value = ko.observable();
+            if(this.source) {
+                var v = this.fielddef.getFieldValue(this.source);
+                this.value(v);
+            }
+        }
+
+        this.subscriptionForChange = this.value.subscribe(function (newValue) {
+            if (self.fielddef.isValid && !self.fielddef.isValid()) self.fielddef.validate(null, self.source);
             // console.log( "field changed to ", newValue );
         });
     }
-
-
 
 
 
@@ -64,11 +79,11 @@ define([
         console.log( "handleCalendarIconClick", $inputField );
     }
 
+
+
     /******************
      *  PRIVATE METHODS
      ******************/
-
-
 
     p.dispose = function () {
         console.log( "-- dispose FormfieldWidget --" );
