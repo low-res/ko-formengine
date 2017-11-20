@@ -34,10 +34,9 @@ define([
 
     p._validateForm = function( ) {
         var self = this;
-        var formFields = this._getFormfields( );
-        return _.reduce(formFields, function( validity, fieldDef) {
-            var s = ko.utils.unwrapObservable(self.source);
-            var v = fieldDef.validate(null, s);
+        var formFields = this.inputFields;
+        return _.reduce(formFields, function( validity, inputfield) {
+            var v = inputfield.validate();
             return validity && v;
         }, true);
     }

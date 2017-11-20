@@ -242,7 +242,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:binary-extensions@1.10.0": {
+    "npm:binary-extensions@1.11.0": {
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:bindings@1.2.1": {
@@ -921,7 +921,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:is-binary-path@1.0.1": {
-      "binary-extensions": "npm:binary-extensions@1.10.0",
+      "binary-extensions": "npm:binary-extensions@1.11.0",
       "path": "github:jspm/nodelibs-path@0.1.0"
     },
     "npm:is-buffer@1.1.6": {

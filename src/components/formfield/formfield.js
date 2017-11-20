@@ -49,14 +49,15 @@ define([
         // we need an observablefor the input element which holds the current
         // value. If the fieldefinition does not provide it's own observable
         // we need to create a new one and fill it with the current value
-        if(this.fielddef.value) this.value = this.fielddef.value
-        else {
-            this.value = ko.observable();
-            if(this.source) {
-                var v = this.fielddef.getFieldValue(this.source);
-                this.value(v);
-            }
+        if(this.fielddef.value) this.value = this.fielddef.value;
+        else this.value = ko.observable();
+        if(this.source) {
+            var v = this.fielddef.getFieldValue(this.source);
+            this.value(v);
         }
+        this.fielddef.value = this.value;
+        if( this.fielddef.isValid ) this.fielddef.isValid(true);
+        if( this.fielddef.errors ) this.fielddef.errors([]);
 
         this.subscriptionForChange = this.value.subscribe(function (newValue) {
             if (self.fielddef.isValid && !self.fielddef.isValid()) self.fielddef.validate(null, self.source);
@@ -80,6 +81,9 @@ define([
     }
 
 
+    p.validate = function () {
+        return this.fielddef.validate();
+    }
 
     /******************
      *  PRIVATE METHODS
@@ -97,8 +101,9 @@ define([
             createViewModel: function( params, elementInfo ) {
                 var instance = new FormfieldWidget( params );
                 var context = ko.contextFor(elementInfo.element);
-                if( context.$data.registerSubcomponent ) {
-                    context.$data.registerSubcomponent( instance );
+                var parentForm = context.$parents[1];
+                if( parentForm.registerSubcomponent ) {
+                    parentForm.registerSubcomponent( instance );
                 }
                 return instance;
             }
