@@ -2,8 +2,9 @@
 define([
     'knockout',
     'lodash',
+    'moment',
     './generic-form.html!text'
-], function ( ko, _, templateMarkup, styles ) {
+], function ( ko, _, moment, templateMarkup, styles ) {
 
     var p = GenericForm.prototype;
 
@@ -53,13 +54,18 @@ define([
         var o = {};
         _.forEach(this.inputFields, function (i) {
             var def = i.fielddef;
+            var v = i.value();
+            switch( def.type ) {
+                case "date":
+                    if(_.isDate(v)) v = moment(v).format('YYYY-MM-DD');
+                    break;
+            }
             if(def.name) {
-                _.set(o, def.name, i.value());
+                _.set(o, def.name, v);
             }
         });
         return o;
     }
-
 
 
     p._getFormfields = function () {

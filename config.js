@@ -22,6 +22,7 @@ System.config({
     "low-res/ko-fielddefinitions": "github:low-res/ko-fielddefinitions@master",
     "low-res/ko-systemjsloader": "github:low-res/ko-systemjsloader@master",
     "low-res/translator": "github:low-res/translator@master",
+    "moment": "npm:moment@2.19.2",
     "postal": "npm:postal@2.0.5",
     "systemjs/plugin-css": "github:systemjs/plugin-css@0.1.36",
     "systemjs/plugin-text": "github:systemjs/plugin-text@0.0.11",
