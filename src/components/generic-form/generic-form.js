@@ -3,8 +3,10 @@ define([
     'knockout',
     'lodash',
     'moment',
+    'low-res/ko-utils/misc/numberParser',
+    'low-res/validator',
     './generic-form.html!text'
-], function ( ko, _, moment, templateMarkup, styles ) {
+], function ( ko, _, moment, NumberParser, Validator, templateMarkup, styles ) {
 
     var p = GenericForm.prototype;
 
@@ -24,11 +26,12 @@ define([
 
     p.submit = function () {
         var isValid = this._validateForm();
+        var proxyObject = null;
         if(isValid) {
-            var proxyObject = this._createProxyObject();
-            console.log( proxyObject );
+            proxyObject = this._createProxyObject();
             if( _.isFunction(this.afterSubmit) ) this.afterSubmit( proxyObject );
         }
+        return proxyObject;
     }
 
 
@@ -67,6 +70,9 @@ define([
                     if(_.isDate(v)) v = moment(v).format('YYYY-MM-DD');
                     break;
             }
+
+            if( Validator.containsValidation('numerical', def.validation) ) v = NumberParser.parseFloat(v);
+
             if(def.name) {
                 _.set(o, def.name, v);
             }

@@ -20,7 +20,9 @@ define([
             };
 
             fieldDef1 = new FieldsCollection( {
-                fields: [ {name:"field1", label:"Label1", value:123, valueAccessor:'field1'} ],
+                fields: [
+                    {name:"field1", label:"Label1", value:ko.observable(123), valueAccessor:'field1', validation:'required|numerical'}
+                    ],
                 collections: [ {name:"editform", fields:["field1"]} ]
             } );
 
@@ -34,13 +36,7 @@ define([
             testForm = new GenericFormClass( {formRows:fieldDef1.getFormRows("editform")} );
         });
 
-        it('should create an dummy object with all properties that are defined in fielddefinitions', function () {
-            expect(testForm.formValues.field1).toBeDefined();
-        });
 
-        it("should prefill the formvalues with the corresponding values of the source object", function () {
-            expect(testForm.formValues.field1).toEqual(123);
-        });
 
         it("should display all formfields for given configuration", function( done ) {
             var formFields = fieldDef1.getFormRows("editform");
@@ -50,6 +46,15 @@ define([
                 done();
             },500)
 
+        });
+
+        it("should create object with all formvalues on submit", function () {
+            var r = fieldDef1.getFormRows("editform");
+            var form = new GenericFormClass( {formRows:r} );
+            console.log( r );
+           var proxyObj =  form.submit();
+           console.log( "proxy:", proxyObj );
+            expect(proxyObj.field1).toEqual(303);
         });
 
         it("should validate all fields on submit", function(){});

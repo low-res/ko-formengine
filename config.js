@@ -21,7 +21,9 @@ System.config({
     "low-res/ko-bs-bindings": "github:low-res/ko-bs-bindings@master",
     "low-res/ko-fielddefinitions": "github:low-res/ko-fielddefinitions@master",
     "low-res/ko-systemjsloader": "github:low-res/ko-systemjsloader@master",
+    "low-res/ko-utils": "github:low-res/ko-utils@master",
     "low-res/translator": "github:low-res/translator@master",
+    "low-res/validator": "github:low-res/validator@master",
     "moment": "npm:moment@2.19.2",
     "postal": "npm:postal@2.0.5",
     "systemjs/plugin-css": "github:systemjs/plugin-css@0.1.36",
@@ -122,6 +124,10 @@ System.config({
     },
     "github:low-res/ko-systemjsloader@master": {
       "knockout": "github:knockout/knockout@3.4.2"
+    },
+    "github:low-res/ko-utils@master": {
+      "lodash": "npm:lodash@4.17.4",
+      "numeral": "npm:numeral@2.0.6"
     },
     "github:low-res/validator@master": {
       "lodash": "npm:lodash@4.17.4"
