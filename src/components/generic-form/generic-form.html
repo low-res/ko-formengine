@@ -3,15 +3,23 @@
     <!-- ko foreach:{data:formRows, as:'row'} -->
     <div class="row">
         <!-- ko foreach:row -->
-        <div class="{{ 'col-md-'+$data.width }}">
-            <ko-formengine-field params="fielddef:$data.field, source:$component.source"></ko-formengine-field>
-        </div>
+
+            <!-- ko if:$data.width=="hidden"-->
+                <ko-formengine-field params="fielddef:$data.field, source:$component.source, hidden:true"></ko-formengine-field>
+            <!-- /ko -->
+
+            <!-- ko if:$data.width != "hidden"-->
+                <div class="{{ 'col-md-'+$data.width }}">
+                    <ko-formengine-field params="fielddef:$data.field, source:$component.source"></ko-formengine-field>
+                </div>
+            <!-- /ko -->
         <!-- /ko -->
     </div>
     <!-- /ko -->
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
-            <input type="button" value="{{ 'form-submit' }}" data-bind="click:submit">
+            <input type="button" class="btn btn-primary" value="{{ 'form-submit' }}" data-bind="click:submit">
+            <!-- ko if:afterCancel --><input type="button" class="btn btn-default" value="{{ 'form-cancel' }}" data-bind="click:cancel"><!-- /ko -->
         </div>
     </div>
 </form>

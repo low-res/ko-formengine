@@ -16,6 +16,7 @@ define([
         this.useInlineErrors    = ko.observable( false || params.useInlineErrors );
         this.tabindex           = params.tabindex || 0;
         this.source             = ko.utils.unwrapObservable(params.source);
+        this.hidden             = params.hidden || false;
 
         // default form type is input
         if(!this.fielddef.type) this.fielddef.type = "input";

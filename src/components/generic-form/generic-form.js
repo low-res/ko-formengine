@@ -16,8 +16,8 @@ define([
         this.formRows       = params.formRows;
         this.source         = params.source;
         this.afterSubmit    = params.afterSubmit;
+        this.afterCancel    = params.afterCancel || null;
         this.inputFields     = [];
-
     }
 
 
@@ -29,6 +29,13 @@ define([
             console.log( proxyObject );
             if( _.isFunction(this.afterSubmit) ) this.afterSubmit( proxyObject );
         }
+    }
+
+
+
+    p.cancel = function () {
+        console.log( "cancel form" );
+        if( _.isFunction(this.afterCancel) ) this.afterCancel(  );
     }
 
 
