@@ -6,7 +6,7 @@
     <div class="form-group">
         <!-- ko if:fielddef.label -->
         <label for="">
-            {{ fielddef.label | translate }}
+            {{{ fielddef.label | translate }}}
             <!-- ko if: fielddef.popover -->
             <info-popover params="slug:'popover_'+fielddef.popover"></info-popover>
             <!-- /ko -->
@@ -62,7 +62,7 @@
         <div class="checkbox">
             <label data-bind="css:{error:!$parent.isValid()}">
                 <input type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { tabindex:$parent.tabindex }">
-                {{ $parent.fielddef.labelprefix+$data | translate }}
+                {{{ $parent.fielddef.labelprefix+$data | translate }}}
 
                 <!-- ko if: $parent.fielddef.popover -->
                     <info-popover params="slug:'popover_'+$parent.fielddef.popover"></info-popover>
