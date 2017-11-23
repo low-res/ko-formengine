@@ -17,9 +17,11 @@
     </div>
     <!-- /ko -->
     <div class="row">
-        <div class="col-md-3 col-md-offset-9">
-            <input type="button" class="btn btn-primary" value="{{ 'form-submit' }}" data-bind="click:submit">
+        <div class="col-md-3 col-md-offset-6">
             <!-- ko if:afterCancel --><input type="button" class="btn btn-default" value="{{ 'form-cancel' }}" data-bind="click:cancel"><!-- /ko -->
+        </div>
+        <div class="col-md-3">
+            <input type="button" class="btn btn-primary" value="{{ 'form-submit' }}" data-bind="click:submit">
         </div>
     </div>
 </form>
