@@ -29,3 +29,6 @@ small.error-msg {
   overflow: hidden;
   width: 100%;
 }
+div.checkbox + small.error-msg {
+  position: static;
+}
