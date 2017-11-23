@@ -15,11 +15,13 @@ define([
 
         console.log( "GenericForm", params );
 
-        this.formRows       = params.formRows;
-        this.source         = params.source;
-        this.afterSubmit    = params.afterSubmit;
-        this.afterCancel    = params.afterCancel || null;
-        this.inputFields     = [];
+        this.formRows           = params.formRows;
+        this.source             = params.source;
+        this.afterSubmit        = params.afterSubmit;
+        this.afterCancel        = params.afterCancel || null;
+        this.form_cancel_label  = params.form_cancel_label || 'form_cancel_label'
+        this.form_submit_label  = params.form_submit_label || 'form_submit_label'
+        this.inputFields        = [];
     }
 
 
