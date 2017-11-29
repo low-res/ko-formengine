@@ -36,16 +36,13 @@ define([
             testForm = new GenericFormClass( {formRows:fieldDef1.getFormRows("editform")} );
         });
 
-
-
         it("should display all formfields for given configuration", function( done ) {
             var formFields = fieldDef1.getFormRows("editform");
             appViewModel.formRows( formFields );
             setTimeout(function () {
                 console.log( $("#testNode") );
                 done();
-            },500)
-
+            },500);
         });
 
         it("should create object with all formvalues on submit", function () {

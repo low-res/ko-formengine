@@ -19,6 +19,7 @@
       "low-res/formater": "github:low-res/formater@master",
       "low-res/ko-bs-bindings": "github:low-res/ko-bs-bindings@master",
       "low-res/ko-fielddefinitions": "github:low-res/ko-fielddefinitions@master",
+      "low-res/ko-punches-additions": "github:low-res/ko-punches-additions@^2.0.5",
       "low-res/ko-systemjsloader": "github:low-res/ko-systemjsloader@master",
       "low-res/ko-utils": "github:low-res/ko-utils@master",
       "low-res/translator": "github:low-res/translator@master",

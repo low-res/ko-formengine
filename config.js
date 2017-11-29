@@ -20,6 +20,7 @@ System.config({
     "low-res/formater": "github:low-res/formater@master",
     "low-res/ko-bs-bindings": "github:low-res/ko-bs-bindings@master",
     "low-res/ko-fielddefinitions": "github:low-res/ko-fielddefinitions@master",
+    "low-res/ko-punches-additions": "github:low-res/ko-punches-additions@2.0.7",
     "low-res/ko-systemjsloader": "github:low-res/ko-systemjsloader@master",
     "low-res/ko-utils": "github:low-res/ko-utils@master",
     "low-res/translator": "github:low-res/translator@master",
@@ -122,12 +123,21 @@ System.config({
       "low-res/formater": "github:low-res/formater@master",
       "low-res/validator": "github:low-res/validator@master"
     },
+    "github:low-res/ko-punches-additions@2.0.7": {
+      "knockout": "github:knockout/knockout@3.4.2",
+      "lodash": "npm:lodash@4.17.4",
+      "low-res/formater": "github:low-res/formater@master",
+      "low-res/translator": "github:low-res/translator@master"
+    },
     "github:low-res/ko-systemjsloader@master": {
       "knockout": "github:knockout/knockout@3.4.2"
     },
     "github:low-res/ko-utils@master": {
       "lodash": "npm:lodash@4.17.4",
       "numeral": "npm:numeral@2.0.6"
+    },
+    "github:low-res/translator@master": {
+      "sprintf-js": "npm:sprintf-js@1.1.1"
     },
     "github:low-res/validator@master": {
       "lodash": "npm:lodash@4.17.4"
@@ -516,7 +526,7 @@ System.config({
       "inherits": "npm:inherits@2.0.3",
       "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
     },
-    "npm:detect-libc@1.0.2": {
+    "npm:detect-libc@1.0.3": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "os": "github:jspm/nodelibs-os@0.1.0",
@@ -924,7 +934,7 @@ System.config({
     "npm:inherits@2.0.3": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:ini@1.3.4": {
+    "npm:ini@1.3.5": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:is-binary-path@1.0.1": {
@@ -1080,7 +1090,7 @@ System.config({
       "isbinaryfile": "npm:isbinaryfile@3.0.2",
       "lodash": "npm:lodash@3.10.1",
       "log4js": "npm:log4js@0.6.38",
-      "mime": "npm:mime@1.4.1",
+      "mime": "npm:mime@1.6.0",
       "minimatch": "npm:minimatch@3.0.4",
       "optimist": "npm:optimist@0.6.1",
       "os": "github:jspm/nodelibs-os@0.1.0",
@@ -1199,7 +1209,7 @@ System.config({
       "mime-db": "npm:mime-db@1.30.0",
       "path": "github:jspm/nodelibs-path@0.1.0"
     },
-    "npm:mime@1.4.1": {
+    "npm:mime@1.6.0": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -1224,7 +1234,7 @@ System.config({
     },
     "npm:node-pre-gyp@0.6.39": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
-      "detect-libc": "npm:detect-libc@1.0.2",
+      "detect-libc": "npm:detect-libc@1.0.3",
       "events": "github:jspm/nodelibs-events@0.1.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "hawk": "npm:hawk@3.1.3",
@@ -1464,7 +1474,7 @@ System.config({
     "npm:rc@1.2.2": {
       "deep-extend": "npm:deep-extend@0.4.2",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "ini": "npm:ini@1.3.4",
+      "ini": "npm:ini@1.3.5",
       "minimist": "npm:minimist@1.2.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
@@ -1680,6 +1690,9 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:spdx-license-ids@1.2.2": {
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
+    },
+    "npm:sprintf-js@1.1.1": {
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:sshpk@1.13.1": {

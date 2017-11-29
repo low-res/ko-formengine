@@ -5,15 +5,16 @@ define([
     'moment',
     'low-res/ko-utils/misc/numberParser',
     'low-res/validator',
+    'low-res/ko-punches-additions',
     './generic-form.html!text'
-], function ( ko, _, moment, NumberParser, Validator, templateMarkup, styles ) {
+], function ( ko, _, moment, NumberParser, Validator, Kopa, templateMarkup, styles ) {
 
     var p = GenericForm.prototype;
 
     function GenericForm( params ) {
         if(!params.formRows) throw(new Error("GenericForm needs parameter 'formRows'!"));
 
-        console.log( "GenericForm", params );
+        console.log( "+++ GenericForm", params );
 
         this.formRows           = params.formRows;
         this.source             = params.source;
@@ -22,6 +23,10 @@ define([
         this.form_cancel_label  = params.form_cancel_label || 'form_cancel_label'
         this.form_submit_label  = params.form_submit_label || 'form_submit_label'
         this.inputFields        = [];
+
+        // make sure kopa filters are available
+        console.log( ko.filters.translate );
+        if(!ko.filters.translate) Kopa.init();
     }
 
 
