@@ -3,6 +3,7 @@ define([
     'knockout',
     'lodash',
     'jquery',
+    'low-res/validator',
     './formfield.html!text',
     './formfield.css!css'
 ], function (ko, _, $, Validator, templateMarkup) {
