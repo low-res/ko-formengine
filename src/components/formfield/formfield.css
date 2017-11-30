@@ -15,7 +15,6 @@ label {
 }
 label.required:after {
   content: '*';
-  padding-left: 3px;
 }
 .form-control.error {
   border-color: #d53b0a;
