@@ -5,7 +5,7 @@ define([
     'jquery',
     './formfield.html!text',
     './formfield.css!css'
-], function (ko, _, $, templateMarkup) {
+], function (ko, _, $, Validator, templateMarkup) {
 
     var p = FormfieldWidget.prototype;
 
@@ -17,6 +17,13 @@ define([
         this.tabindex           = params.tabindex || 0;
         this.source             = ko.utils.unwrapObservable(params.source);
         this.hidden             = params.hidden || false;
+        this.fieldlabelclass    = ko.pureComputed( function () {
+            var res = Validator.containsValidation('required', self.fielddef.validation) ? 'required' : '';
+            return res;
+        });
+        this.fieldId            = ko.pureComputed( function () {
+           return self.fielddef.name+(Math.random()*100000);
+        });
 
         // default form type is input
         if(!this.fielddef.type) this.fielddef.type = "input";
