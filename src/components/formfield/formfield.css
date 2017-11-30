@@ -13,6 +13,10 @@ label {
   font-size: 16px;
   margin-bottom: 8px;
 }
+label.required:after {
+  content: '*';
+  padding-left: 3px;
+}
 .form-control.error {
   border-color: #d53b0a;
   background-color: #fee7e0;

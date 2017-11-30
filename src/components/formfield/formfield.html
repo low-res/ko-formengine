@@ -5,12 +5,12 @@
 <!-- ko if:!hidden -->
     <div class="form-group">
         <!-- ko if:fielddef.label -->
-        <label for="{{fieldId}}" data-bind="css:fieldlabelclass">
-            {{{ fielddef.label | translate }}}
+            <label for="{{fieldId}}" data-bind="css:fieldlabelclass">
+                {{{ fielddef.label | translate }}}
+            </label>
             <!-- ko if: fielddef.popover -->
                 <info-popover params="slug:'popover_'+fielddef.popover"></info-popover>
             <!-- /ko -->
-        </label>
         <!-- /ko -->
 
         <!-- ko if: fielddef.type=="input" -->
