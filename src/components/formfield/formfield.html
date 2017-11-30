@@ -50,8 +50,8 @@
         <!-- ko if: fielddef.type=="radio" -->
         <br>
         <!-- ko foreach: fielddef.options -->
-        <label for="{{$component.fieldId}}" class="radio-inline" data-bind="css:{error:!$parent.isValid()}">
-            <input id="{{$component.fieldId}}" type="radio" name="{{$parent.fielddef.label}}" value="{{$data.value}}" data-bind="checked: $parent.value, attr: { tabindex:$parent.tabindex }">
+        <label for="{{$component.fieldId+$data}}" class="radio-inline" data-bind="css:{error:!$parent.isValid()}">
+            <input id="{{$component.fieldId+$data}}" type="radio" name="{{$parent.fielddef.label}}" value="{{$data.value}}" data-bind="checked: $parent.value, attr: { tabindex:$parent.tabindex }">
             {{ $data.label | translate }}
         </label>
         <!-- /ko -->
@@ -60,8 +60,8 @@
         <!-- ko if: fielddef.type=="checkbox" -->
         <!-- ko foreach: fielddef.options -->
         <div class="checkbox">
-            <label for="{{$component.fieldId}}" data-bind="css:{error:!$parent.isValid()}">
-                <input id="{{$component.fieldId}}" type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { tabindex:$parent.tabindex }">
+            <label for="{{$component.fieldId+$data}}" data-bind="css:{error:!$parent.isValid()}">
+                <input id="{{$component.fieldId+$data}}" type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { tabindex:$parent.tabindex }">
                 {{{ $parent.fielddef.labelprefix+$data | translate }}}
 
                 <!-- ko if: $parent.fielddef.popover -->
