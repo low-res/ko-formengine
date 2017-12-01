@@ -51,14 +51,15 @@
         <select data-bind="
             value: value,
             select2: {
-                data: fielddef.options,
+                options:fielddef.options,
+                optionsText:fielddef.optionsText,
+                optionsValue:fielddef.optionsValue,
                 placeholder: window.kopa.translate(fielddef.optionscaption),
-                allowClear: true,
-                formatResult: format
+                allowClear: false
             },
             css:{error:!isValid()},
             attr: { tabindex:tabindex }"
-            id="{{fieldId}}" class="form-control" name="{{fielddef.label}}">
+                id="{{fieldId}}" class="form-control" name="{{fielddef.label}}">
         </select>
         <!-- /ko -->
 
