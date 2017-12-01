@@ -72,6 +72,9 @@ define([
             if (self.fielddef.isValid && !self.fielddef.isValid()) self.fielddef.validate(null, self.source);
             // console.log( "field changed to ", newValue );
         });
+
+        // this is a dummy observable that is needed by select2
+        this.select2Obs = ko.observable(null);
     }
 
 
