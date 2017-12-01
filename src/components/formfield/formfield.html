@@ -49,17 +49,19 @@
 
         <!-- ko if: fielddef.type=="select2" -->
         <select data-bind="
-            value: value,
+            value: select2Obs,
             select2: {
+                selectedOption: value,
                 options:fielddef.options,
                 optionsText:fielddef.optionsText,
                 optionsValue:fielddef.optionsValue,
-                placeholder: window.kopa.translate(fielddef.optionscaption),
+                optionscaption: window.kopa.translate(fielddef.optionscaption),
                 allowClear: false
             },
             css:{error:!isValid()},
             attr: { tabindex:tabindex }"
                 id="{{fieldId}}" class="form-control" name="{{fielddef.label}}">
+            <option></option>
         </select>
         <!-- /ko -->
 

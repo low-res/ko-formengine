@@ -18,27 +18,36 @@ define([
         ko.bindingHandlers.select2 = {
 
             init: function (el, valueAccessor, allBindingsAccessor, viewModel) {
-                var bindingData = ko.unwrap(valueAccessor());
+                var bindingData     = ko.unwrap(valueAccessor());
+                var allBindings     = ko.unwrap(allBindingsAccessor());
+                var currentvalue    = ko.utils.unwrapObservable( allBindings.value );
+                var selectedOption  = bindingData.selectedOption( );
+                var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
+                // allBindings.value( selectedOption[idProp] );
 
                 /**
                  * prepare an data object for select2
                  * (expects dedicated format: https://select2.org/data-sources/formats)
                  */
                 var prepareData = function () {
-                    var r = [];
+                    var r = [ ];
                     _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
-                        var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
 
                         var tmpItem = {
                             id: obj[idProp],
                             text: obj[bindingData.optionsText]
                         };
+
+                        if(selectedOption[idProp]==obj[idProp]) tmpItem.selected = true;
+
                         r.push( tmpItem );
                     } );
                     return r;
                 };
                 bindingData.data = prepareData();
-                console.log( "++++ INIT SELECT2 ++++", bindingData, window.$(el) );
+                bindingData.placeholder = bindingData.optionscaption;
+                console.log( "++++ INIT SELECT2 ++++", selectedOption, currentvalue );
+                console.log( "binding data", bindingData );
 
                 window.$(el).select2(bindingData);
 
@@ -46,19 +55,25 @@ define([
                     window.$(el).select2('destroy');
                 });
             },
-            update: function (el, valueAccessor, allBindingsAccessor, viewModel) {
-                var allBindings = allBindingsAccessor();
-                var select2 = window.$(el).data("select2");
-                if ("value" in allBindings) {
-                    var newValue = "" + ko.unwrap(allBindings.value);
-                    if ((allBindings.select2.multiple || el.multiple) && newValue.constructor !== Array) {
-                        select2.val([newValue.split(",")]);
-                    }
-                    else {
-                        select2.val([newValue]);
-                    }
-                }
+
+            update: function (el, valueAccessor, allBindingsAccessor) {
+                console.log( "+++ UPDATE" );
+                var allBindings     = allBindingsAccessor();
+                var currentValue    = allBindings.value();
+                var bindingData     = ko.unwrap(valueAccessor());
+
+                var selectedOption = function () {
+                    var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
+                    return _.find( ko.utils.unwrapObservable(bindingData.options), function (obj) {
+                        return obj[idProp] == currentValue;
+                    } )
+                };
+                var currentOption = selectedOption();
+                console.log( "--- update select2 ", currentValue, currentOption );
+                if(currentOption) bindingData.selectedOption( currentOption );
+
             }
+
         };
 
     }
