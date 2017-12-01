@@ -8,9 +8,15 @@
             <label for="{{fieldId}}" data-bind="css:fieldlabelclass">
                 {{{ fielddef.label | translate }}}
             </label>
+
             <!-- ko if: fielddef.popover -->
                 <info-popover params="slug:'popover_'+fielddef.popover"></info-popover>
             <!-- /ko -->
+
+            <!-- ko if: fielddef.info -->
+                <small>{{ 'popover_'+fielddef.popover+'_copy' | translate }}</small>
+            <!-- /ko -->
+
         <!-- /ko -->
 
         <!-- ko if: fielddef.type=="input" -->
