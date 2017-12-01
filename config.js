@@ -27,6 +27,7 @@ System.config({
     "low-res/validator": "github:low-res/validator@master",
     "moment": "npm:moment@2.19.2",
     "postal": "npm:postal@2.0.5",
+    "select2/select2": "github:select2/select2@4.0.5",
     "systemjs/plugin-css": "github:systemjs/plugin-css@0.1.36",
     "systemjs/plugin-text": "github:systemjs/plugin-text@0.0.11",
     "text": "github:systemjs/plugin-text@0.0.11",
@@ -141,6 +142,9 @@ System.config({
     },
     "github:low-res/validator@master": {
       "lodash": "npm:lodash@4.17.4"
+    },
+    "github:select2/select2@4.0.5": {
+      "jquery": "npm:jquery@2.2.4"
     },
     "github:twbs/bootstrap@3.3.7": {
       "jquery": "npm:jquery@3.2.1"

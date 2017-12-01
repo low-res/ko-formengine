@@ -55,7 +55,7 @@ define([
             return res;
         });
 
-        // we need an observablefor the input element which holds the current
+        // we need an observable for the input element which holds the current
         // value. If the fieldefinition does not provide it's own observable
         // we need to create a new one and fill it with the current value
         if(this.fielddef.value) this.value = this.fielddef.value;
@@ -92,6 +92,15 @@ define([
 
     p.validate = function () {
         return this.fielddef.validate();
+    }
+
+    /**
+     * generate unique id for formelement
+     * this is especially needed for radiobuttons and checkboxes
+     */
+    p.calculateInputId = function ( fielddata ) {
+        var id = this.fieldId+ko.utils.unwrapObservable(fielddata);
+        return
     }
 
     /******************
