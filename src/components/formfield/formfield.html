@@ -72,29 +72,32 @@
         <!-- /ko -->
 
         <!-- ko if: fielddef.type=="radio" -->
-        <br>
-        <!-- ko foreach: fielddef.options -->
-        <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
-            <input  type="radio" name="{{$parent.fielddef.label}}" value="{{$data.value}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
-            {{ $data.label | translate }}
-        </label>
-        <!-- /ko -->
+        <div class="clearfix">
+            <!-- ko foreach: fielddef.options -->
+            <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
+                <input  type="radio" name="{{$parent.fielddef.label}}" value="{{$data.value}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
+                {{ $data.label | translate }}
+            </label>
+            <!-- /ko -->
+        </div>
         <!-- /ko -->
 
         <!-- ko if: fielddef.type=="checkbox" -->
-        <!-- ko foreach: fielddef.options -->
-        <div class="checkbox">
-            <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
-                <input type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
-                {{{ $parent.fielddef.labelprefix+$data | translate }}}
+        <div class="clearfix">
+            <!-- ko foreach: fielddef.options -->
+            <div class="checkbox">
+                <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
+                    <input type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
+                    {{{ $parent.fielddef.labelprefix+$data | translate }}}
 
-                <!-- ko if: $parent.fielddef.popover -->
-                <info-popover params="slug:'popover_'+$parent.fielddef.popover"></info-popover>
-                <!-- /ko -->
+                    <!-- ko if: $parent.fielddef.popover -->
+                    <info-popover params="slug:'popover_'+$parent.fielddef.popover"></info-popover>
+                    <!-- /ko -->
 
-            </label>
+                </label>
+            </div>
+            <!-- /ko -->
         </div>
-        <!-- /ko -->
         <!-- /ko -->
 
         <!-- ko if: fielddef.type=="text" -->

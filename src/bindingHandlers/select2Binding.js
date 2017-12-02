@@ -38,7 +38,7 @@ define([
                             text: obj[bindingData.optionsText]
                         };
 
-                        if(selectedOption[idProp]==obj[idProp]) tmpItem.selected = true;
+                        if(selectedOption && selectedOption[idProp]==obj[idProp]) tmpItem.selected = true;
 
                         r.push( tmpItem );
                     } );
