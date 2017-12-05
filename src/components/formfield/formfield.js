@@ -47,9 +47,10 @@ define([
             var res = "";
             if(self.fielddef.errors) {
                 var err = self.fielddef.errors();
-                res = _.reduce(err, function (msg, error) {
-                    return msg + window.kopa.translate(error) + "<br>" ;
-                }, "");
+                if(err.length > 0) res = window.kopa.translate(err.length[0]);
+                // res = _.reduce(err, function (msg, error) {
+                //     return msg + window.kopa.translate(error) + "<br>" ;
+                // }, "");
                 if(!_.isEmpty(res))console.log( "error",self.fielddef.name,  res );
             }
             return res;
