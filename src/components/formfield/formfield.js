@@ -106,6 +106,13 @@ define([
         return
     }
 
+    p.calculateCssClass = function () {
+        var classes = ['ko-formengine-field','type-'+this.fielddef.type];
+        if(!this.isValid()) classes.push('error');
+        if(this.fielddef.info) classes.push('hasLabelInfo');
+        return classes.join(' ');
+    }
+
     /******************
      *  PRIVATE METHODS
      ******************/

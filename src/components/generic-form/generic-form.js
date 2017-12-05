@@ -2,12 +2,13 @@
 define([
     'knockout',
     'lodash',
+    'jquery',
     'moment',
     'low-res/ko-utils/misc/numberParser',
     'low-res/validator',
     'low-res/ko-punches-additions',
     './generic-form.html!text'
-], function ( ko, _, moment, NumberParser, Validator, Kopa, templateMarkup, styles ) {
+], function ( ko, _, $, moment, NumberParser, Validator, Kopa, templateMarkup, styles ) {
 
     var p = GenericForm.prototype;
 
@@ -37,6 +38,13 @@ define([
         if(isValid) {
             proxyObject = this._createProxyObject();
             if( _.isFunction(this.afterSubmit) ) this.afterSubmit( proxyObject );
+        } else {
+            setTimeout( function () {
+                $('html, body').animate({
+                    scrollTop: $(".errorindicator").eq(0).parent().offset().top
+                }, 500);
+            }, 500);
+
         }
         return proxyObject;
     }

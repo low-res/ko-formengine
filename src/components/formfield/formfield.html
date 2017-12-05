@@ -1,60 +1,58 @@
 <!-- ko if:hidden -->
-    <input class="form-control" type="hidden" data-bind="textInput: value" />
+<input class="form-control" type="hidden" data-bind="textInput: value" />
 <!-- /ko -->
 
 <!-- ko if:!hidden -->
-    <div class="form-group ko-formengine-field">
-        <!-- ko if:fielddef.label -->
-            <label for="{{fieldId}}" data-bind="css:fieldlabelclass">
-                {{{ fielddef.label | translate }}}
-            </label>
+<div class="form-group " data-bind="css:calculateCssClass()">
+    <!-- ko if:fielddef.label -->
+    <label for="{{fieldId}}" data-bind="css:fieldlabelclass">
+        {{{ fielddef.label | translate }}}
+    </label>
 
-            <!-- ko if: fielddef.popover -->
-                <info-popover params="slug:'popover_'+fielddef.popover"></info-popover>
-            <!-- /ko -->
+    <!-- ko if: fielddef.popover -->
+    <info-popover params="slug:'popover_'+fielddef.popover"></info-popover>
+    <!-- /ko -->
 
-            <!-- ko if: fielddef.info -->
-                <small>{{ 'popover_'+fielddef.info+'_copy' | translate }}</small>
-            <!-- /ko -->
+    <!-- ko if: fielddef.info -->
+    <small>{{ 'popover_'+fielddef.info+'_copy' | translate }}</small>
+    <!-- /ko -->
 
-        <!-- /ko -->
+    <!-- /ko -->
 
-        <!-- ko if: fielddef.type=="input" -->
-        <input id="{{fieldId}}" class="form-control" type="text" data-bind="
+    <!-- ko if: fielddef.type=="input" -->
+    <input id="{{fieldId}}" class="form-control" type="text" data-bind="
                 textInput: value,
-                css:{error:!isValid()},
                 attr: { placeholder: fielddef.placeholder, tabindex:tabindex },
                 hasFocus: fielddef.hasFocus,
                 event: {blur: fielddef.validate }"/>
-        <!-- /ko -->
+    <!-- /ko -->
 
-        <!-- ko if: fielddef.type=="password" -->
-        <input id="{{fieldId}}" class="form-control" type="password" data-bind="textInput: value, css:{error:!isValid()}, attr:{tabindex:tabindex}" />
-        <!-- /ko -->
+    <!-- ko if: fielddef.type=="password" -->
+    <input id="{{fieldId}}" class="form-control" type="password" data-bind="textInput: value, attr:{tabindex:tabindex}" />
+    <!-- /ko -->
 
-        <!-- ko if: fielddef.type=="date" -->
-        <div class='input-group date' >
-            <input id="{{fieldId}}"  type='text' class="form-control" data-bind="css:{error:!isValid()}, dateTimePicker: value, dateTimePickerOptions: {locale: 'de', format: 'DD.MM.YYYY', minDate:fielddef.minDate, maxDate:fielddef.maxDate}"/>
-            <span class="input-group-addon" data-bind="click:handleCalendarIconClick">
+    <!-- ko if: fielddef.type=="date" -->
+    <div class='input-group date' >
+        <input id="{{fieldId}}"  type='text' class="form-control" data-bind="dateTimePicker: value, dateTimePickerOptions: {locale: 'de', format: 'DD.MM.YYYY', minDate:fielddef.minDate, maxDate:fielddef.maxDate}"/>
+        <span class="input-group-addon" data-bind="click:handleCalendarIconClick">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
-        </div>
-        <!-- /ko -->
+    </div>
+    <!-- /ko -->
 
-        <!-- ko if: fielddef.type=="select" -->
-        <select id="{{fieldId}}" class="form-control" name="{{fielddef.label}}" data-bind="
+    <!-- ko if: fielddef.type=="select" -->
+    <select id="{{fieldId}}" class="form-control" name="{{fielddef.label}}" data-bind="
             options:fielddef.options,
             optionsText:fielddef.optionsText,
             optionsValue:fielddef.optionsValue,
             value:value,
             optionsCaption:window.kopa.translate(fielddef.optionscaption),
-            css:{error:!isValid()},
             attr: { tabindex:tabindex }">
-        </select>
-        <!-- /ko -->
+    </select>
+    <!-- /ko -->
 
-        <!-- ko if: fielddef.type=="select2" -->
-        <select data-bind="
+    <!-- ko if: fielddef.type=="select2" -->
+    <select data-bind="
             value: select2Obs,
             select2: {
                 selectedOption: value,
@@ -66,47 +64,47 @@
             },
             css:{error:!isValid()},
             attr: { tabindex:tabindex }"
-                id="{{fieldId}}" class="form-control" name="{{fielddef.label}}">
-            <option></option>
-        </select>
-        <!-- /ko -->
+            id="{{fieldId}}" class="form-control" name="{{fielddef.label}}">
+        <option></option>
+    </select>
+    <!-- /ko -->
 
-        <!-- ko if: fielddef.type=="radio" -->
-        <div class="clearfix">
-            <!-- ko foreach: fielddef.options -->
-            <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
-                <input  type="radio" name="{{$parent.fielddef.label}}" value="{{$data.value}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
-                {{ $data.label | translate }}
-            </label>
-            <!-- /ko -->
-        </div>
-        <!-- /ko -->
-
-        <!-- ko if: fielddef.type=="checkbox" -->
-        <div class="clearfix">
-            <!-- ko foreach: fielddef.options -->
-            <div class="checkbox">
-                <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
-                    <input type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
-                    {{{ $parent.fielddef.labelprefix+$data | translate }}}
-
-                    <!-- ko if: $parent.fielddef.popover -->
-                    <info-popover params="slug:'popover_'+$parent.fielddef.popover"></info-popover>
-                    <!-- /ko -->
-
-                </label>
-            </div>
-            <!-- /ko -->
-        </div>
-        <!-- /ko -->
-
-        <!-- ko if: fielddef.type=="text" -->
-        <textarea id="{{fieldId}}" class="form-control" rows="3" data-bind="textInput: value, css:{error:!isValid()}, attr: { tabindex:tabindex }"></textarea>
-        <!-- /ko -->
-
-        <!-- ko if: errors() != "" -->
-        <!-- ko if:!useInlineErrors() --><small class="error-msg">{{{ errors }}}</small><!-- /ko -->
-        <!-- ko if:useInlineErrors() --><span class="inlineerror" data-bind="popover: errors,placement:'top'"><i class="glyphicon glyphicon-warning-sign"></i></span><!-- /ko -->
+    <!-- ko if: fielddef.type=="radio" -->
+    <div class="clearfix">
+        <!-- ko foreach: fielddef.options -->
+        <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
+            <input  type="radio" name="{{$parent.fielddef.label}}" value="{{$data.value}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
+            {{ $data.label | translate }}
+        </label>
         <!-- /ko -->
     </div>
+    <!-- /ko -->
+
+    <!-- ko if: fielddef.type=="checkbox" -->
+    <div class="clearfix">
+        <!-- ko foreach: fielddef.options -->
+        <div class="checkbox">
+            <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
+                <input type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
+                {{{ $parent.fielddef.labelprefix+$data | translate }}}
+
+                <!-- ko if: $parent.fielddef.popover -->
+                <info-popover params="slug:'popover_'+$parent.fielddef.popover"></info-popover>
+                <!-- /ko -->
+
+            </label>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: fielddef.type=="text" -->
+    <textarea id="{{fieldId}}" class="form-control" rows="3" data-bind="textInput: value, attr: { tabindex:tabindex }"></textarea>
+    <!-- /ko -->
+
+    <!-- ko if: errors() != "" -->
+    <!-- ko if:!useInlineErrors() --><small class="errorindicator error-msg">{{{ errors }}}</small><!-- /ko -->
+    <!-- ko if:useInlineErrors() --><span class="errorindicator inlineerror" data-bind="popover: errors,placement:'top'"><i class="glyphicon glyphicon-warning-sign"></i></span><!-- /ko -->
+    <!-- /ko -->
+</div>
 <!-- /ko -->

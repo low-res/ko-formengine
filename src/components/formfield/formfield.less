@@ -1,44 +1,59 @@
 @color_validationerror:#D53B0A;
 @color_fieldborder:#CCC;
 
-  .form-group {
-    margin-bottom: 30px;
-    position: relative;
+.form-group {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.form-control {
+  height: 50px;
+  box-shadow: none;
+  border-radius: 0;
+  border-color: @color_fieldborder;
+  font-size: 16px;
+}
+
+label {
+  font-size: 16px;
+  margin-bottom: 8px;
+
+  &.required:after {
+    content:'*';
   }
+}
 
-  .form-control {
-    height: 50px;
-    box-shadow: none;
-    border-radius: 0;
-    border-color: @color_fieldborder;
-    font-size: 16px;
-  }
 
-  label {
-    font-size: 16px;
-    margin-bottom: 8px;
+.error .form-control,
+.ko-formengine-field.type-select2.error .select2-container--default .select2-selection--single,
+.ko-formengine-field.type-date.error .input-group-addon {
+  border-color: @color_validationerror;
+  background-color: lighten(@color_validationerror, 50%);
+}
 
-    &.required:after {
-      content:'*';
-    }
-  }
+label.error { color: @color_validationerror; }
+small.error-msg {
+  position: absolute;
+  top: 85px;
+  color: @color_validationerror;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
 
-  .form-control.error {
-    border-color: @color_validationerror;
-    background-color: lighten(@color_validationerror, 50%);
-  }
-
-  label.error { color: @color_validationerror; }
+.ko-formengine-field.type-text.error {
   small.error-msg {
-    position: absolute;
-    top: 90px;
-    color: @color_validationerror;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 100%;
+    top: 115px;
   }
+}
 
-  div.checkbox + small.error-msg {
+.ko-formengine-field.hasLabelInfo.error,
+.ko-formengine-field.type-radio.error,
+.ko-formengine-field.type-checkbox.error {
+  small.error-msg {
     position: static;
+    margin-top: 5px;
   }
+}
+

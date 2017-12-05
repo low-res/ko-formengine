@@ -16,7 +16,9 @@ label {
 label.required:after {
   content: '*';
 }
-.form-control.error {
+.error .form-control,
+.ko-formengine-field.type-select2.error .select2-container--default .select2-selection--single,
+.ko-formengine-field.type-date.error .input-group-addon {
   border-color: #d53b0a;
   background-color: #fee7e0;
 }
@@ -25,13 +27,19 @@ label.error {
 }
 small.error-msg {
   position: absolute;
-  top: 90px;
+  top: 85px;
   color: #d53b0a;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
 }
-div.checkbox + small.error-msg {
+.ko-formengine-field.type-text.error small.error-msg {
+  top: 115px;
+}
+.ko-formengine-field.hasLabelInfo.error small.error-msg,
+.ko-formengine-field.type-radio.error small.error-msg,
+.ko-formengine-field.type-checkbox.error small.error-msg {
   position: static;
+  margin-top: 5px;
 }
