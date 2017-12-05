@@ -103,7 +103,7 @@
     <!-- /ko -->
 
     <!-- ko if: errors() != "" -->
-    <!-- ko if:!useInlineErrors() --><small class="errorindicator error-msg">{{{ errors }}}</small><!-- /ko -->
+    <!-- ko if:!useInlineErrors() --><small title="{{ errors }}" class="errorindicator error-msg">{{{ errors }}}</small><!-- /ko -->
     <!-- ko if:useInlineErrors() --><span class="errorindicator inlineerror" data-bind="popover: errors,placement:'top'"><i class="glyphicon glyphicon-warning-sign"></i></span><!-- /ko -->
     <!-- /ko -->
 </div>
