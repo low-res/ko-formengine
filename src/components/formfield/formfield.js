@@ -30,10 +30,12 @@ define([
         if(!this.fielddef.type) this.fielddef.type = "input";
 
         // every select has a caption
-        if( this.fielddef.type == "select" ) {
+        if( this.fielddef.type == "select" || this.fielddef.type == "select2" ) {
             if( !this.fielddef.optionscaption ) this.fielddef.optionscaption = "general.optionscaption"
-        }
 
+            // this is a dummy observable that is needed by select2
+            this.select2Obs = ko.observable(null);
+        }
 
         this.isValid = ko.pureComputed( function () {
             if(self.fielddef.isValid) {
@@ -47,7 +49,7 @@ define([
             var res = "";
             if(self.fielddef.errors) {
                 var err = self.fielddef.errors();
-                if(err.length > 0) res = window.kopa.translate(err.length[0]);
+                if(err.length > 0) res = window.kopa.translate(err[0]);
                 // res = _.reduce(err, function (msg, error) {
                 //     return msg + window.kopa.translate(error) + "<br>" ;
                 // }, "");
@@ -69,13 +71,15 @@ define([
         if( this.fielddef.isValid ) this.fielddef.isValid(true);
         if( this.fielddef.errors ) this.fielddef.errors([]);
 
+
+
         this.subscriptionForChange = this.value.subscribe(function (newValue) {
             if (self.fielddef.isValid && !self.fielddef.isValid()) self.fielddef.validate(null, self.source);
             // console.log( "field changed to ", newValue );
+            if(self.select2Obs) self.select2Obs(newValue);
         });
 
-        // this is a dummy observable that is needed by select2
-        this.select2Obs = ko.observable(null);
+
     }
 
 

@@ -96,6 +96,7 @@ define([
     }
 
 
+
     p._getFormfields = function () {
         var fields = [];
         _.forEach(ko.utils.unwrapObservable(this.formRows), function (row) {

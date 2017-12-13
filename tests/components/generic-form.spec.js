@@ -45,15 +45,6 @@ define([
             },500);
         });
 
-        it("should create object with all formvalues on submit", function () {
-            var r = fieldDef1.getFormRows("editform");
-            var form = new GenericFormClass( {formRows:r} );
-            console.log( r );
-           var proxyObj =  form.submit();
-           console.log( "proxy:", proxyObj );
-            expect(proxyObj.field1).toEqual(303);
-        });
-
         it("should validate all fields on submit", function(){});
 
         it("should prefill form values if any are given", function(){});
