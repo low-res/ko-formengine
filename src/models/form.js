@@ -1,8 +1,9 @@
+/* */
 
 define([
     'knockout',
     'lodash',
-    'src/models/inputfield'
+    './inputfield'
 ], function (ko, _, Inputfield) {
 
     var p = Form.prototype;
@@ -17,9 +18,12 @@ define([
 
 
     p.validate = function () {
-        var v = _.reduce(this.inputfields(), function (result, tmpInputfield) {
-            return result && tmpInputfield.validate();
-        }, true);
+        var v = true;
+        var fields = this.inputfields();
+        _.forEach(fields, function (tmpInputfield) {
+            var tmpValidate = tmpInputfield.validate();
+            v = v && tmpValidate;
+        });
         return v;
     }
 
@@ -46,6 +50,9 @@ define([
             fieldname = tmpInputfield.getFieldDefinition().name;
             fieldvalue = tmpInputfield.getValueForServer();
             v[fieldname] = fieldvalue;
+            if(fieldname) {
+                _.set(v, fieldname, fieldvalue);
+            }
         });
         return v;
     }
@@ -62,7 +69,7 @@ define([
      *
      *  PRIVATE API
      *
-    *************************************/
+     *************************************/
 
     /**
      * for every fielddef in formrows, create an inputfield object
@@ -72,21 +79,23 @@ define([
      */
     p._prepareInputfieldModels = function () {
         var fields = [];
-        var tmpInputfield;
         var source = this.source;
+        var form = this;
 
         _.forEach(ko.utils.unwrapObservable(this.formRows), function (row) {
             _.forEach(row, function (def) {
 
                 if( def.field ) {
-                    tmpInputfield = new Inputfield(def.field, source);
+                    var tmpInputfield = new Inputfield(def.field, source);
+                    tmpInputfield.setContext(form);
                     fields.push( tmpInputfield );
-
                     if(!def.inputfield) def.inputfield = tmpInputfield;
                 }
             });
         });
         this.inputfields( fields );
+
+        console.log( "_prepareInputfieldModels", this.inputfields( ) );
     }
 
     return Form;

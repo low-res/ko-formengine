@@ -1,18 +1,19 @@
 
 <form class="ko-formengine-form form-horizontal" enctype="multipart/form-data">
-    <!-- ko foreach:{data:formRows, as:'row'} -->
+    <!-- ko foreach:{data:form.formRows, as:'row'} -->
     <div class="row">
         <!-- ko foreach:row -->
 
         <!-- ko if:$data.width=="hidden"-->
-        <ko-formengine-field params="fielddef:$data.field, source:$component.source, hidden:true"></ko-formengine-field>
+        <ko-formengine-field params="inputfield:$data.inputfield, hidden:true"></ko-formengine-field>
         <!-- /ko -->
 
         <!-- ko if:$data.width != "hidden"-->
         <div class="{{ 'col-md-'+$data.width }}">
-            <ko-formengine-field params="fielddef:$data.field, source:$component.source"></ko-formengine-field>
+            <ko-formengine-field params="inputfield:$data.inputfield"></ko-formengine-field>
         </div>
         <!-- /ko -->
+
         <!-- /ko -->
     </div>
     <!-- /ko -->

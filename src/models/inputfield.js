@@ -1,3 +1,4 @@
+/* */
 define([
     "knockout",
     "lodash",
@@ -21,9 +22,18 @@ define([
         this.source     = source;
         this.errors     = ko.observableArray();
         this.type       = fielddef.type || "input";
+        this.id         = this.fielddef.name ? this.fielddef.name + (Math.floor(Math.random()*100000) ) : "fieldid_"+Math.floor(Math.random()*100000);
         this.isValid    = ko.pureComputed( function () {
-            self.errors().length == 0;
+            var err = self.errors();
+            return err.length == 0;
         });
+        this.context    = null; // this can be anything the inputfiled is related too. Mainlythis is meant for the form that contains this inputfield.
+
+        if( this.fielddef.type == "select" || this.fielddef.type == "select2" ) {
+            if( !this.fielddef.optionscaption ) this.fielddef.optionscaption = "general.optionscaption"
+            // this is a dummy observable that is needed by select2
+            this.select2Obs = ko.observable(null);
+        }
 
         this._initValueObservable();
     }
@@ -32,7 +42,7 @@ define([
     p.validate = function () {
         this.errors.removeAll();
         var v   = this.fielddef.validation;
-        var res = Validator.validate( this.value(), v );
+        var res = Validator.validate( this.value(), v, this.context );
         this.errors( Validator.getLastValidationErrors() );
         this.errors.valueHasMutated();
         return res;
@@ -59,6 +69,10 @@ define([
         this._inheritValueFromSourceObject();
     }
 
+
+    p.setContext = function ( c ) {
+        this.context = c;
+    }
 
     /**
      * make underlying fielddefinition available
@@ -90,16 +104,29 @@ define([
     }
 
 
+    p.dispose = function () {
+        this.subscriptionForChange.dispose();
+    }
+
+
     // we need an observable for the input element which holds the current
     // value. If the fieldefinition does not provide it's own observable
     // we need to create a new one and fill it with the current value
     p._initValueObservable = function () {
+        var self = this;
+
         if(this.fielddef.value) this.value = this.fielddef.value;
         else this.value = ko.observable();
 
         this._inheritValueFromSourceObject();
 
+        this.subscriptionForChange = this.value.subscribe(function (newValue) {
+            if (!self.isValid()) self.validate();
+            if(self.select2Obs) self.select2Obs(newValue);
+        });
+
     }
+
 
     p._inheritValueFromSourceObject = function () {
         if(this.source) {

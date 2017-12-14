@@ -1,95 +1,95 @@
 <!-- ko if:hidden -->
-<input class="form-control" type="hidden" data-bind="textInput: value" />
+<input class="form-control" type="hidden" data-bind="textInput: inputfield.value" />
 <!-- /ko -->
 
 <!-- ko if:!hidden -->
 <div class="form-group " data-bind="css:calculateCssClass()">
-    <!-- ko if:fielddef.label -->
-    <label for="{{fieldId}}" data-bind="css:fieldlabelclass">
-        {{{ fielddef.label | translate }}}
+    <!-- ko if:inputfield.getFieldDefinition().label -->
+    <label for="{{inputfield.id}}" data-bind="css:fieldlabelclass">
+        {{{ inputfield.getFieldDefinition().label | translate }}}
     </label>
 
-    <!-- ko if: fielddef.popover -->
-    <info-popover params="slug:'popover_'+fielddef.popover"></info-popover>
+    <!-- ko if: inputfield.getFieldDefinition().popover -->
+    <info-popover params="slug:'popover_'+inputfield.getFieldDefinition().popover"></info-popover>
     <!-- /ko -->
 
-    <!-- ko if: fielddef.info -->
-    <small>{{ 'popover_'+fielddef.info+'_copy' | translate }}</small>
+    <!-- ko if: inputfield.getFieldDefinition().info -->
+    <small>{{ 'popover_'+inputfield.getFieldDefinition().info+'_copy' | translate }}</small>
     <!-- /ko -->
 
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="input" -->
-    <input id="{{fieldId}}" class="form-control" type="text" data-bind="
-                textInput: value,
-                attr: { placeholder: fielddef.placeholder, tabindex:tabindex },
-                hasFocus: fielddef.hasFocus,
-                event: {blur: fielddef.validate }"/>
+    <!-- ko if: inputfield.type=="input" -->
+    <input id="{{inputfield.id}}" class="form-control" type="text" data-bind="
+                textInput: inputfield.value,
+                attr: { placeholder: inputfield.getFieldDefinition().placeholder, tabindex:tabindex },
+                hasFocus: inputfield.getFieldDefinition().hasFocus,
+                event: {blur: inputfield.validate }"/>
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="password" -->
-    <input id="{{fieldId}}" class="form-control" type="password" data-bind="textInput: value, attr:{tabindex:tabindex}" />
+    <!-- ko if: inputfield.type=="password" -->
+    <input id="{{inputfield.id}}" class="form-control" type="password" data-bind="textInput: inputfield.value, attr:{tabindex:tabindex}" />
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="date" -->
+    <!-- ko if: inputfield.type=="date" -->
     <div class='input-group date' >
-        <input id="{{fieldId}}"  type='text' class="form-control" data-bind="dateTimePicker: value, dateTimePickerOptions: {locale: 'de', format: 'DD.MM.YYYY', minDate:fielddef.minDate, maxDate:fielddef.maxDate}"/>
+        <input id="{{inputfield.id}}"  type='text' class="form-control" data-bind="dateTimePicker: inputfield.value, dateTimePickerOptions: {locale: 'de', format: 'DD.MM.YYYY', minDate:inputfield.getFieldDefinition().minDate, maxDate:inputfield.getFieldDefinition().maxDate}"/>
         <span class="input-group-addon" data-bind="click:handleCalendarIconClick">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
     </div>
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="select" -->
-    <select id="{{fieldId}}" class="form-control" name="{{fielddef.label}}" data-bind="
-            options:fielddef.options,
-            optionsText:fielddef.optionsText,
-            optionsValue:fielddef.optionsValue,
-            value:value,
-            optionsCaption:window.kopa.translate(fielddef.optionscaption),
+    <!-- ko if: inputfield.type=="select" -->
+    <select id="{{inputfield.id}}" class="form-control" name="{{inputfield.getFieldDefinition().label}}" data-bind="
+            options:inputfield.getFieldDefinition().options,
+            optionsText:inputfield.getFieldDefinition().optionsText,
+            optionsValue:inputfield.getFieldDefinition().optionsValue,
+            value:inputfield.value,
+            optionsCaption:window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
             attr: { tabindex:tabindex }">
     </select>
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="select2" -->
+    <!-- ko if: inputfield.type=="select2" -->
     <select data-bind="
-            value: select2Obs,
+            value: inputfield.select2Obs,
             select2: {
-                selectedOption: value,
-                options:fielddef.options,
-                optionsText:fielddef.optionsText,
-                optionsValue:fielddef.optionsValue,
-                optionscaption: window.kopa.translate(fielddef.optionscaption),
+                selectedOption: inputfield.value,
+                options:inputfield.getFieldDefinition().options,
+                optionsText:inputfield.getFieldDefinition().optionsText,
+                optionsValue:inputfield.getFieldDefinition().optionsValue,
+                optionscaption: window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
                 allowClear: false
             },
-            css:{error:!isValid()},
+            css:{error:!inputfield.isValid()},
             attr: { tabindex:tabindex }"
-            id="{{fieldId}}" class="form-control" name="{{fielddef.label}}">
+            id="{{inputfield.id}}" class="form-control" name="{{inputfield.getFieldDefinition().label}}">
         <option></option>
     </select>
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="radio" -->
+    <!-- ko if: inputfield.type=="radio" -->
     <div class="clearfix">
-        <!-- ko foreach: fielddef.options -->
-        <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
-            <input  type="radio" name="{{$parent.fielddef.label}}" value="{{$data.value}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
+        <!-- ko foreach: inputfield.getFieldDefinition().options -->
+        <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.inputfield.isValid()}">
+            <input  type="radio" name="{{$parent.inputfield.getFieldDefinition().label}}" value="{{$data.value}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
             {{ $data.label | translate }}
         </label>
         <!-- /ko -->
     </div>
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="checkbox" -->
+    <!-- ko if: inputfield.type=="checkbox" -->
     <div class="clearfix">
-        <!-- ko foreach: fielddef.options -->
+        <!-- ko foreach: inputfield.getFieldDefinition().options -->
         <div class="checkbox">
-            <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.isValid()}">
-                <input type="checkbox" name="{{$parent.fielddef.label}}" value="{{$data}}" data-bind="checked: $parent.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
-                {{{ $parent.fielddef.labelprefix+$data | translate }}}
+            <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.inputfield.isValid()}">
+                <input type="checkbox" name="{{$parent.inputfield.getFieldDefinition().label}}" value="{{$data}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
+                {{{ $parent.inputfield.getFieldDefinition().labelprefix+$data | translate }}}
 
-                <!-- ko if: $parent.fielddef.popover -->
-                <info-popover params="slug:'popover_'+$parent.fielddef.popover"></info-popover>
+                <!-- ko if: $parent.inputfield.getFieldDefinition().popover -->
+                <info-popover params="slug:'popover_'+$parent.inputfield.getFieldDefinition().popover"></info-popover>
                 <!-- /ko -->
 
             </label>
@@ -98,8 +98,8 @@
     </div>
     <!-- /ko -->
 
-    <!-- ko if: fielddef.type=="text" -->
-    <textarea id="{{fieldId}}" class="form-control" rows="3" data-bind="textInput: value, attr: { tabindex:tabindex }"></textarea>
+    <!-- ko if: inputfield.type=="text" -->
+    <textarea id="{{inputfield.id}}" class="form-control" rows="3" data-bind="textInput: inputfield.value, attr: { tabindex:tabindex }"></textarea>
     <!-- /ko -->
 
     <!-- ko if: errors() != "" -->

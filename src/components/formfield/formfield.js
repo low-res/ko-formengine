@@ -4,9 +4,10 @@ define([
     'lodash',
     'jquery',
     'low-res/validator',
+    '../../models/inputfield',
     './formfield.html!text',
     './formfield.css!css'
-], function (ko, _, $, Validator, templateMarkup) {
+], function (ko, _, $, Validator, Inputfield, templateMarkup) {
 
     var p = FormfieldWidget.prototype;
 
@@ -14,71 +15,30 @@ define([
         var self                = this;
 
         this.fielddef           = params.fielddef;
-        this.useInlineErrors    = ko.observable( false || params.useInlineErrors );
-        this.tabindex           = params.tabindex || 0;
         this.source             = ko.utils.unwrapObservable(params.source);
-        this.hidden             = params.hidden || false;
-        this.fieldlabelclass    = ko.pureComputed( function () {
-            var res = Validator.containsValidation('required', self.fielddef.validation) ? 'required' : '';
-            return res;
-        });
-        this.fieldId            = ko.pureComputed( function () {
-           return self.fielddef.name+(Math.random()*100000);
-        });
-
-        // default form type is input
-        if(!this.fielddef.type) this.fielddef.type = "input";
-
-        // every select has a caption
-        if( this.fielddef.type == "select" || this.fielddef.type == "select2" ) {
-            if( !this.fielddef.optionscaption ) this.fielddef.optionscaption = "general.optionscaption"
-
-            // this is a dummy observable that is needed by select2
-            this.select2Obs = ko.observable(null);
+        if( params.inputfield ) {
+            this.inputfield     = ko.utils.unwrapObservable(params.inputfield);
+            if(!this.inputfield) console.error( "Missing Inputfiled Object! Given was ", this.inputfield  );
+        } else {
+            console.warn( "Using params fielddef and source is deprecated for this component and will be removed soon. Please use param 'inputfield' and provide an Inputfiled object! " );
+            this.inputfield     = new Inputfield(this.fielddef, this.source);
         }
 
-        this.isValid = ko.pureComputed( function () {
-            if(self.fielddef.isValid) {
-                return ko.utils.unwrapObservable(self.fielddef.isValid);
-            } else {
-                return true;
-            }
-        })
+        this.useInlineErrors    = ko.observable( false || params.useInlineErrors );
+        this.tabindex           = params.tabindex || 0;
+        this.hidden             = params.hidden || false;
+        this.fieldlabelclass    = ko.pureComputed( function () {
+            var res = Validator.containsValidation('required', self.inputfield.getFieldDefinition().validation) ? 'required' : '';
+            return res;
+        });
 
         this.errors = ko.pureComputed( function () {
             var res = "";
-            if(self.fielddef.errors) {
-                var err = self.fielddef.errors();
-                if(err.length > 0) res = window.kopa.translate(err[0]);
-                // res = _.reduce(err, function (msg, error) {
-                //     return msg + window.kopa.translate(error) + "<br>" ;
-                // }, "");
-                if(!_.isEmpty(res))console.log( "error",self.fielddef.name,  res );
+            if(self.inputfield.errors().length > 0) {
+                res = window.kopa.translate(self.inputfield.errors()[0]);
             }
             return res;
         });
-
-        // we need an observable for the input element which holds the current
-        // value. If the fieldefinition does not provide it's own observable
-        // we need to create a new one and fill it with the current value
-        if(this.fielddef.value) this.value = this.fielddef.value;
-        else this.value = ko.observable();
-        if(this.source) {
-            var v = this.fielddef.getFieldValue(this.source);
-            this.value(v);
-        }
-        this.fielddef.value = this.value;
-        if( this.fielddef.isValid ) this.fielddef.isValid(true);
-        if( this.fielddef.errors ) this.fielddef.errors([]);
-
-
-
-        this.subscriptionForChange = this.value.subscribe(function (newValue) {
-            if (self.fielddef.isValid && !self.fielddef.isValid()) self.fielddef.validate(null, self.source);
-            // console.log( "field changed to ", newValue );
-            if(self.select2Obs) self.select2Obs(newValue);
-        });
-
 
     }
 
@@ -89,18 +49,16 @@ define([
      ******************/
 
     p.handleCalendarIconClick = function ( widget, event ) {
-        console.log( "handleCalendarIconClick" );
         var $icon = $(event.currentTarget);
-        console.log( $icon );
         var $inputField = $icon.prev('input');
         $inputField.focus();
-        console.log( "handleCalendarIconClick", $inputField );
     }
 
 
     p.validate = function () {
-        return this.fielddef.validate();
+        return this.inputfield.validate();
     }
+
 
     /**
      * generate unique id for formelement
@@ -108,15 +66,18 @@ define([
      */
     p.calculateInputId = function ( fielddata ) {
         var id = this.fieldId+ko.utils.unwrapObservable(fielddata);
-        return
+        return id;
     }
 
+
     p.calculateCssClass = function () {
-        var classes = ['ko-formengine-field','type-'+this.fielddef.type];
-        if(!this.isValid()) classes.push('error');
-        if(this.fielddef.info) classes.push('hasLabelInfo');
+        console.log( this.inputfield );
+        var classes = ['ko-formengine-field','type-'+this.inputfield.type];
+        if(!this.inputfield.isValid()) classes.push('error');
+        if(this.inputfield.getFieldDefinition().info) classes.push('hasLabelInfo');
         return classes.join(' ');
     }
+
 
     /******************
      *  PRIVATE METHODS
@@ -124,7 +85,7 @@ define([
 
     p.dispose = function () {
         console.log( "-- dispose FormfieldWidget --" );
-        this.subscriptionForChange.dispose();
+        this.inputfield.dispose();
     };
 
 
