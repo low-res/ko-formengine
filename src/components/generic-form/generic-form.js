@@ -27,7 +27,8 @@ define([
         this.afterCancel        = params.afterCancel || null;
         this.form_cancel_label  = params.form_cancel_label || 'form_cancel_label'
         this.form_submit_label  = params.form_submit_label || 'form_submit_label'
-        // this.inputFields        = [];
+        this.showButtons        = ko.observable( true  );
+        if(params.showButtons)  this.showButtons(params.showButtons);
 
         // make sure kopa filters are available
         if(!ko.filters.translate) Kopa.init();

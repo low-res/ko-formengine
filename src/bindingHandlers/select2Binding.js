@@ -73,11 +73,8 @@ define([
                 if(currentOption && bindingData.selectedOption() != currentOption) {
                     bindingData.selectedOption( currentValue );
                 }
-
             }
-
         };
-
     }
 
 });
