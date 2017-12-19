@@ -65,7 +65,7 @@ define([
      * this is especially needed for radiobuttons and checkboxes
      */
     p.calculateInputId = function ( fielddata ) {
-        var id = this.fieldId+ko.utils.unwrapObservable(fielddata);
+        var id = this.inputfield.id+ko.utils.unwrapObservable(fielddata);
         return id;
     }
 

@@ -96,6 +96,13 @@ define([
             case "date":
                 if(_.isDate(rawValue)) processedValue = moment(rawValue).format('YYYY-MM-DD');
                 break;
+
+            case "select":
+            case "select2":
+                if( this.fielddef.optionsValue ) {
+                    processedValue = _.get(rawValue, this.fielddef.optionsValue);
+                }
+                break;
         }
 
         if( Validator.containsValidation('numerical', this.fielddef.validation) ) processedValue = NumberParser.parseFloat(rawValue);
