@@ -123,7 +123,10 @@ define([
         var self = this;
 
         if(this.fielddef.value) this.value = this.fielddef.value;
-        else this.value = ko.observable();
+        else {
+            if( this.fielddef.type == "checkbox") this.value = ko.observableArray();
+            else this.value = ko.observable();
+        }
 
         this._inheritValueFromSourceObject();
 
