@@ -100,7 +100,7 @@ define([
             case "select":
             case "select2":
                 if( this.fielddef.optionsValue ) {
-                    processedValue = _.get(rawValue, this.fielddef.optionsValue);
+                    processedValue = _.get(rawValue, this.fielddef.optionsValue, rawValue);
                 }
                 break;
         }
@@ -141,6 +141,9 @@ define([
     p._inheritValueFromSourceObject = function () {
         if(this.source) {
             var v = this.fielddef.getFieldValue(this.source);
+            if( this.fielddef.type == "checkbox" && !_.isArray(v)) {
+                v = [v];
+            }
             this.value(v);
         }
     }

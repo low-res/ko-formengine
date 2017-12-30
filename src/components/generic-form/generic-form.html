@@ -4,13 +4,19 @@
     <div class="row">
         <!-- ko foreach:row -->
 
-        <!-- ko if:$data.width=="hidden"-->
+        <!-- ko if:$data.type == "field" && $data.width=="hidden"-->
         <ko-formengine-field params="inputfield:$data.inputfield, hidden:true"></ko-formengine-field>
         <!-- /ko -->
 
-        <!-- ko if:$data.width != "hidden"-->
-        <div class="{{ 'col-md-'+$data.width }}">
+        <!-- ko if:$data.type == "field" && $data.width != "hidden"-->
+        <div class="field {{ 'col-md-'+$data.width }}">
             <ko-formengine-field params="inputfield:$data.inputfield"></ko-formengine-field>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if:$data.type == "divider"-->
+        <div class="divider col-md-12">
+            <h2>{{ $data.label | translate }}</h2>
         </div>
         <!-- /ko -->
 
