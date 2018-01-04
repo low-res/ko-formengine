@@ -71,7 +71,8 @@ define([
                 var currentOption = selectedOption();
                 console.log( "--- update select2 ", currentValue, currentOption );
                 if(currentOption && bindingData.selectedOption() != currentOption) {
-                    bindingData.selectedOption( currentValue );
+                    bindingData.selectedOption( currentOption );
+                    // bindingData.selectedOption( currentValue );
                 }
             }
         };

@@ -142,7 +142,8 @@ define([
         if(this.source) {
             var v = this.fielddef.getFieldValue(this.source);
             if( this.fielddef.type == "checkbox" && !_.isArray(v)) {
-                v = [v];
+                if(v) v = [v];
+                else v = [];
             }
             this.value(v);
         }
