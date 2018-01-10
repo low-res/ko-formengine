@@ -32,15 +32,21 @@ define([
                 var prepareData = function () {
                     var r = [ ];
                     _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
+                        if(obj) {
+                            var t = "";
+                            if(_.isFunction(bindingData.optionsText)) {
+                                t = bindingData.optionsText(obj);
+                            } else {
+                                t = obj[bindingData.optionsText];
+                            }
+                            var tmpItem = {
+                                id: obj[idProp],
+                                text: t
+                            };
+                            if(selectedOption && (selectedOption==obj[idProp] || selectedOption[idProp]==obj[idProp])) tmpItem.selected = true;
+                            r.push( tmpItem );
+                        }
 
-                        var tmpItem = {
-                            id: obj[idProp],
-                            text: obj[bindingData.optionsText]
-                        };
-
-                        if(selectedOption && (selectedOption==obj[idProp] || selectedOption[idProp]==obj[idProp])) tmpItem.selected = true;
-
-                        r.push( tmpItem );
                     } );
                     return r;
                 };
@@ -65,7 +71,12 @@ define([
                 var selectedOption = function () {
                     var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
                     return _.find( ko.utils.unwrapObservable(bindingData.options), function (obj) {
-                        return obj[idProp] == currentValue;
+                        if(obj) {
+                            return obj[idProp] == currentValue;
+                        } else {
+                            return false;
+                        }
+
                     } )
                 };
                 var currentOption = selectedOption();
