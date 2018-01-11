@@ -55,7 +55,9 @@ define([
                 console.log( "++++ INIT SELECT2 ++++", selectedOption, currentvalue );
                 console.log( "binding data", bindingData );
 
-                window.$(el).select2(bindingData);
+                window.$(el)
+                    .select2(bindingData)
+                    .focus(function () { $(this).select2('open'); });
 
                 ko.utils.domNodeDisposal.addDisposeCallback(el, function () {
                     window.$(el).select2('destroy');
