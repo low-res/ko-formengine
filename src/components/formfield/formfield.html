@@ -20,7 +20,7 @@
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="input" -->
-    <input id="{{inputfield.id}}" class="form-control" type="text" data-bind="
+    <input id="{{inputfield.id}}" class="form-control" type="{{inputfield.keyboardtype}}" data-bind="
                 textInput: inputfield.value,
                 attr: { placeholder: inputfield.getFieldDefinition().placeholder, tabindex:tabindex },
                 hasFocus: inputfield.getFieldDefinition().hasFocus,
@@ -33,7 +33,7 @@
 
     <!-- ko if: inputfield.type=="date" -->
     <div class='input-group date' >
-        <input id="{{inputfield.id}}"  type='text' class="form-control" data-bind="dateTimePicker: inputfield.value, dateTimePickerOptions: {locale: 'de', format: 'DD.MM.YYYY', minDate:inputfield.getFieldDefinition().minDate, maxDate:inputfield.getFieldDefinition().maxDate}"/>
+        <input id="{{inputfield.id}}"  type='date' class="form-control" data-bind="dateTimePicker: inputfield.value, dateTimePickerOptions: {locale: 'de', format: 'DD.MM.YYYY', minDate:inputfield.getFieldDefinition().minDate, maxDate:inputfield.getFieldDefinition().maxDate}"/>
         <span class="input-group-addon" data-bind="click:handleCalendarIconClick">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>

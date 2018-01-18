@@ -18,12 +18,13 @@ define([
             fielddef = new Field(fielddef);
         }
 
-        this.fielddef   = fielddef;
-        this.source     = source;
-        this.errors     = ko.observableArray();
-        this.type       = fielddef.type || "input";
-        this.id         = this.fielddef.name ? this.fielddef.name + (Math.floor(Math.random()*100000) ) : "fieldid_"+Math.floor(Math.random()*100000);
-        this.isValid    = ko.pureComputed( function () {
+        this.fielddef       = fielddef;
+        this.source         = source;
+        this.errors         = ko.observableArray();
+        this.type           = fielddef.type || "input";
+        this.keyboardtype   = fielddef.keyboardtype || "text";
+        this.id             = this.fielddef.name ? this.fielddef.name + (Math.floor(Math.random()*100000) ) : "fieldid_"+Math.floor(Math.random()*100000);
+        this.isValid        = ko.pureComputed( function () {
             var err = self.errors();
             return err.length == 0;
         });

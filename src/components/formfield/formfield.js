@@ -24,7 +24,7 @@ define([
             this.inputfield     = new Inputfield(this.fielddef, this.source);
         }
 
-        this.useInlineErrors    = ko.observable( false || params.useInlineErrors );
+        this.useInlineErrors    = ko.observable( false || params.useInlineErrors || this.inputfield.fielddef.useInlineErrors );
         this.tabindex           = params.tabindex || 0;
         this.hidden             = params.hidden || false;
         this.fieldlabelclass    = ko.pureComputed( function () {
