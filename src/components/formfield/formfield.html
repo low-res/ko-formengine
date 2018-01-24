@@ -24,7 +24,7 @@
                 textInput: inputfield.value,
                 attr: { placeholder: inputfield.getFieldDefinition().placeholder, tabindex:tabindex },
                 hasFocus: inputfield.getFieldDefinition().hasFocus,
-                event: {blur: inputfield.validate }"/>
+                event: {blur: inputfield.validateOnlyIfValue }"/>
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="password" -->

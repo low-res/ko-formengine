@@ -50,6 +50,22 @@ define([
     }
 
 
+    /**
+     * this validates only if a value is available.
+     * If not, the validation is always true.
+     * This is meant to be used for e.g. onBlur handlers where
+     * you don't want a validation error if the user just left the inputfield
+     * without entering anything.
+     */
+    p.validateOnlyIfValue = function() {
+        if( this.getCurrentValue() ) {
+            return this.validate();
+        }
+        this.errors.removeAll();
+        return true;
+    }
+
+
     p.clear = function () {
         this.setCurrentValue( null );
     }
