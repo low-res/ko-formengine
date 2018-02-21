@@ -30,10 +30,15 @@ define([
         });
         this.context    = null; // this can be anything the inputfiled is related too. Mainlythis is meant for the form that contains this inputfield.
 
+        this.selectMultiple = fielddef.multiple;
+        this.selectSize     = fielddef.size;
         if( this.fielddef.type == "select" || this.fielddef.type == "select2" ) {
             if( !this.fielddef.optionscaption ) this.fielddef.optionscaption = "general.optionscaption"
             // this is a dummy observable that is needed by select2
             this.select2Obs = ko.observable(null);
+
+
+
         }
 
         this._initValueObservable();
@@ -141,7 +146,7 @@ define([
 
         if(this.fielddef.value) this.value = this.fielddef.value;
         else {
-            if( this.fielddef.type == "checkbox") this.value = ko.observableArray();
+            if( this.fielddef.type == "checkbox" || (this.fielddef.type == "select" && this.selectMultiple) ) this.value = ko.observableArray();
             else this.value = ko.observable();
         }
 

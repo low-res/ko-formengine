@@ -16,6 +16,7 @@ define([
 
         this.fielddef           = params.fielddef;
         this.source             = ko.utils.unwrapObservable(params.source);
+
         if( params.inputfield ) {
             this.inputfield     = ko.utils.unwrapObservable(params.inputfield);
             if(!this.inputfield) console.error( "Missing Inputfiled Object! Given was ", this.inputfield  );

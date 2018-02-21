@@ -41,14 +41,27 @@
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="select" -->
-    <select id="{{inputfield.id}}" class="form-control" name="{{inputfield.getFieldDefinition().label}}" data-bind="
-            options:inputfield.getFieldDefinition().options,
-            optionsText:inputfield.getFieldDefinition().optionsText,
-            optionsValue:inputfield.getFieldDefinition().optionsValue,
-            value:inputfield.value,
-            optionsCaption:window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
-            attr: { tabindex:tabindex }">
-    </select>
+        <!-- ko if: inputfield.selectMultiple == true -->
+        <select id="{{inputfield.id}}" class="form-control" name="{{inputfield.getFieldDefinition().label}}" data-bind="
+                options:inputfield.getFieldDefinition().options,
+                optionsText:inputfield.getFieldDefinition().optionsText,
+                optionsValue:inputfield.getFieldDefinition().optionsValue,
+                selectedOptions:inputfield.value,
+                optionsCaption:window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
+                attr: { tabindex:tabindex, size:selectSize, multiple:selectMultiple }">
+        </select>
+        <!-- /ko -->
+
+        <!-- ko if: !inputfield.selectMultiple -->
+        <select id="{{inputfield.id}}" class="form-control" name="{{inputfield.getFieldDefinition().label}}" data-bind="
+                    options:inputfield.getFieldDefinition().options,
+                    optionsText:inputfield.getFieldDefinition().optionsText,
+                    optionsValue:inputfield.getFieldDefinition().optionsValue,
+                    value:inputfield.value,
+                    optionsCaption:window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
+                    attr: { tabindex:tabindex }">
+        </select>
+        <!-- /ko -->
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="select2" -->
