@@ -31,7 +31,7 @@ define([
         this.context    = null; // this can be anything the inputfiled is related too. Mainlythis is meant for the form that contains this inputfield.
 
         this.selectMultiple = fielddef.multiple;
-        this.selectSize     = fielddef.size;
+        this.selectSize     = fielddef.size || 1;
         if( this.fielddef.type == "select" || this.fielddef.type == "select2" ) {
             if( !this.fielddef.optionscaption ) this.fielddef.optionscaption = "general.optionscaption"
             // this is a dummy observable that is needed by select2
