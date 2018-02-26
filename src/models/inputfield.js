@@ -146,29 +146,39 @@ define([
 
         if(this.fielddef.value) this.value = this.fielddef.value;
         else {
-            if( this.fielddef.type == "checkbox" || (this.fielddef.type == "select" && this.selectMultiple) ) this.value = ko.observableArray();
+            if( this._needsArrayAsValue() ) this.value = ko.observableArray();
             else this.value = ko.observable();
         }
 
         this._inheritValueFromSourceObject();
 
+        // somehow the display of the selected items does not work properly
+        // on initialisation... as a quickfix, we refresh the list with some delay, this fixes the issue
+        if( this._needsArrayAsValue() && this.value().length > 0 ) {
+            setTimeout( function(){ self.value.valueHasMutated(); }, 50);
+        }
+
         this.subscriptionForChange = this.value.subscribe(function (newValue) {
             if (!self.isValid()) self.validate();
             if(self.select2Obs) self.select2Obs(newValue);
         });
-
     }
 
 
     p._inheritValueFromSourceObject = function () {
         if(this.source) {
             var v = this.fielddef.getFieldValue(this.source);
-            if( this.fielddef.type == "checkbox" && !_.isArray(v)) {
+            if( this._needsArrayAsValue() && !_.isArray(v) ) {
                 if(v) v = [v];
                 else v = [];
             }
             this.value(v);
         }
+    }
+
+
+    p._needsArrayAsValue = function(){
+        return this.fielddef.type == "checkbox" || (this.fielddef.type == "select" && this.selectMultiple)
     }
 
 
