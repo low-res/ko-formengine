@@ -37,7 +37,11 @@ define([
             // this is a dummy observable that is needed by select2
             this.select2Obs = ko.observable(null);
 
-
+            // show select2 as system selectbox on mobile devices
+            if( this.type == "select2" && this._isMobileDevice() ) {
+                if( !_.isArray(this.fielddef.options) ) this.fielddef.options = _.values( ko.utils.unwrapObservable(this.fielddef.options) );
+                this.type = "select";
+            }
 
         }
 
@@ -180,6 +184,12 @@ define([
     p._needsArrayAsValue = function(){
         return this.fielddef.type == "checkbox" || (this.fielddef.type == "select" && this.selectMultiple)
     }
+
+    // borrowed from
+    // https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
+    p._isMobileDevice = function() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    };
 
 
     return Inputfield;
