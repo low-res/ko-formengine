@@ -65,6 +65,16 @@ define([
     }
 
 
+    /**
+     * returns an array containing all fieldnames of this form
+     * @return {*}
+     */
+    p.getAllFieldnames = function () {
+        return _.map(this.inputfields(), function( tmpInputfield ) {
+            return tmpInputfield.getFieldDefinition().name;
+        });
+    }
+
     /*************************************
      *
      *  PRIVATE API
