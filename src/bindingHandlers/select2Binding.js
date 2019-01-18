@@ -22,8 +22,7 @@ define([
                 var allBindings     = ko.unwrap(allBindingsAccessor());
                 var currentvalue    = ko.utils.unwrapObservable( allBindings.value );
                 var selectedOption  = bindingData.selectedOption( );
-                var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
-                // allBindings.value( selectedOption[idProp] );
+                var idProp          = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
 
                 /**
                  * prepare an data object for select2
@@ -33,17 +32,22 @@ define([
                     var r = [ ];
                     _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
                         if(obj) {
+
                             var t = "";
+                            var idValue = ko.utils.unwrapObservable( obj[idProp] );
+
                             if(_.isFunction(bindingData.optionsText)) {
                                 t = bindingData.optionsText(obj);
                             } else {
-                                t = obj[bindingData.optionsText];
+                                t = ko.utils.unwrapObservable(obj[bindingData.optionsText]);
                             }
+
                             var tmpItem = {
-                                id: obj[idProp],
+                                id: idValue,
                                 text: t
                             };
-                            if(selectedOption && (selectedOption==obj[idProp] || selectedOption[idProp]==obj[idProp])) tmpItem.selected = true;
+
+                            if(selectedOption && (selectedOption== idValue || ko.utils.unwrapObservable(selectedOption[idProp]) == idValue )) tmpItem.selected = true;
                             r.push( tmpItem );
                         }
 
@@ -74,7 +78,7 @@ define([
                     var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
                     return _.find( ko.utils.unwrapObservable(bindingData.options), function (obj) {
                         if(obj) {
-                            return obj[idProp] == currentValue;
+                            return ko.utils.unwrapObservable( obj[idProp] ) == currentValue;
                         } else {
                             return false;
                         }
@@ -85,7 +89,6 @@ define([
                 console.log( "--- update select2 ", currentValue, currentOption );
                 if(currentOption && bindingData.selectedOption() != currentOption) {
                     bindingData.selectedOption( currentOption );
-                    // bindingData.selectedOption( currentValue );
                 }
             }
         };
