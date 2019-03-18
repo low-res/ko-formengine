@@ -28,7 +28,7 @@ define([
             var err = self.errors();
             return err.length == 0;
         });
-        this.context    = null; // this can be anything the inputfiled is related too. Mainlythis is meant for the form that contains this inputfield.
+        this.context        = null; // this can be anything the inputfiled is related too. Mainly this is meant for the form that contains this inputfield.
 
         this.selectMultiple = fielddef.multiple;
         this.selectSize     = fielddef.size || 1;
@@ -184,6 +184,7 @@ define([
     p._needsArrayAsValue = function(){
         return this.fielddef.type == "checkbox" || (this.fielddef.type == "select" && this.selectMultiple)
     }
+
 
     // borrowed from
     // https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript

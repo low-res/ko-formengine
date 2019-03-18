@@ -88,6 +88,7 @@ define([
      * @private
      */
     p._prepareInputfieldModels = function () {
+        var self = this;
         var fields = [];
         var source = this.source;
         var form = this;
@@ -96,16 +97,34 @@ define([
             _.forEach(row, function (def) {
 
                 if( def.field ) {
-                    var tmpInputfield = new Inputfield(def.field, source);
-                    tmpInputfield.setContext(form);
+                    var tmpInputfield = new Inputfield( def.field, source);
+                    tmpInputfield.setContext( form );
                     fields.push( tmpInputfield );
                     if(!def.inputfield) def.inputfield = tmpInputfield;
+                    self._handleDependendOptions( def.field, tmpInputfield, form );
                 }
             });
         });
         this.inputfields( fields );
 
         console.log( "_prepareInputfieldModels", this.inputfields( ) );
+    }
+
+
+    /**
+     * That's quite a hack, but I can't think of a better way right now. This should help to realize dependent form
+     * fields (selects). It creates an computed observable from the given function
+     * to be called in the context of the form
+     *
+     * @private
+     */
+    p._handleDependendOptions = function( fielddef, inputfield, form ) {
+        if( (fielddef.type == "select" || fielddef.type == "select2") && fielddef.dependenedOptions ) {
+
+            var f = _.bind( fielddef.dependenedOptions, inputfield, form );
+            fielddef.options = ko.computed( f );
+
+        }
     }
 
     return Form;
