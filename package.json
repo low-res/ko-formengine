@@ -24,8 +24,8 @@
       "low-res/ko-utils": "github:low-res/ko-utils@master",
       "low-res/translator": "github:low-res/translator@master",
       "low-res/validator": "github:low-res/validator@master",
-      "moment": "npm:moment@^2.19.2",
-      "postal": "npm:postal@^2.0.5",
+      "moment": "npm:moment@^2.20",
+      "postal": "npm:postal@^2.0",
       "select2/select2": "github:select2/select2@^4.0.5",
       "systemjs/plugin-css": "github:systemjs/plugin-css@^0.1.35",
       "systemjs/plugin-text": "github:systemjs/plugin-text@^0.0.11"
@@ -42,13 +42,14 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "jasmine-core": "^2.7.0",
-    "jspm": "^0.16.53",
-    "karma": "^1.7.0",
+    "jasmine-core": "^2.99.1",
+    "jquery": "^3.2.1",
+    "jspm": "^0.16.54",
+    "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.1",
-    "karma-jasmine": "^1.1.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^1.1.2",
     "karma-systemjs": "^0.16.0",
-    "jquery": "^3.2.1"
+    "serve": "^10.1.1"
   }
 }

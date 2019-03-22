@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formengine Demo</title>
+
+        <script src="../jspm_packages/system.js" type="application/javascript"></script>
+        <script src="../config.js" type="application/javascript"></script>
+        <script>
+            System.config({
+                paths: {
+                    "github:*": "../jspm_packages/github/*",
+                    "npm:*": "../jspm_packages/npm/*"
+                },
+
+                map: {
+                    'low-res/ko-formengine':'../src/index',
+                    "moment": "npm:moment@2.24.0",
+                    "numeral": "npm:numeral@2.0.6",
+                    'sprintf-js': 'npm:sprintf-js@1.1.2'
+                }
+            });
+            SystemJS.import('./index.js');
+        </script>
+</head>
+<body>
+    <h1>Formengine Demo</h1>
+    <ko-formengine-form params="
+                form:form
+    "></ko-formengine-form>
+</body>
+</html>

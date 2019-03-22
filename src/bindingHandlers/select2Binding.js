@@ -17,46 +17,45 @@ define([
 
         ko.bindingHandlers.select2 = {
 
+            prepData: function( bindingData ) {
+
+                var idProp          = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
+                var selectedOption  = bindingData.selectedOption( );
+
+                var r = [ ];
+                _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
+                    if(obj) {
+
+                        var t = "";
+                        var idValue = ko.utils.unwrapObservable( obj[idProp] );
+
+                        if(_.isFunction(bindingData.optionsText)) {
+                            t = bindingData.optionsText(obj);
+                        } else {
+                            t = ko.utils.unwrapObservable(obj[bindingData.optionsText]);
+                        }
+
+                        var tmpItem = {
+                            id: idValue,
+                            text: t
+                        };
+
+                        if(selectedOption && (selectedOption== idValue || ko.utils.unwrapObservable(selectedOption[idProp]) == idValue )) tmpItem.selected = true;
+                        r.push( tmpItem );
+                    }
+
+                } );
+                return r;
+            },
+
             init: function (el, valueAccessor, allBindingsAccessor, viewModel) {
                 var bindingData     = ko.unwrap(valueAccessor());
                 var allBindings     = ko.unwrap(allBindingsAccessor());
                 var currentvalue    = ko.utils.unwrapObservable( allBindings.value );
-                var selectedOption  = bindingData.selectedOption( );
-                var idProp          = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
 
-                /**
-                 * prepare an data object for select2
-                 * (expects dedicated format: https://select2.org/data-sources/formats)
-                 */
-                var prepareData = function () {
-                    var r = [ ];
-                    _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
-                        if(obj) {
-
-                            var t = "";
-                            var idValue = ko.utils.unwrapObservable( obj[idProp] );
-
-                            if(_.isFunction(bindingData.optionsText)) {
-                                t = bindingData.optionsText(obj);
-                            } else {
-                                t = ko.utils.unwrapObservable(obj[bindingData.optionsText]);
-                            }
-
-                            var tmpItem = {
-                                id: idValue,
-                                text: t
-                            };
-
-                            if(selectedOption && (selectedOption== idValue || ko.utils.unwrapObservable(selectedOption[idProp]) == idValue )) tmpItem.selected = true;
-                            r.push( tmpItem );
-                        }
-
-                    } );
-                    return r;
-                };
-                bindingData.data = prepareData();
+                bindingData.data = ko.bindingHandlers.select2.prepData( bindingData ); //prepareData();
                 bindingData.placeholder = bindingData.optionscaption;
-                console.log( "++++ INIT SELECT2 ++++", selectedOption, currentvalue );
+                console.log( "++++ INIT SELECT2 ++++", currentvalue );
                 console.log( "binding data", bindingData );
 
                 window.$(el)
@@ -69,7 +68,8 @@ define([
             },
 
             update: function (el, valueAccessor, allBindingsAccessor) {
-                console.log( "+++ UPDATE" );
+                console.log( "+++ UPDATE", arguments );
+
                 var allBindings     = allBindingsAccessor();
                 var currentValue    = allBindings.value();
                 var bindingData     = ko.unwrap(valueAccessor());
