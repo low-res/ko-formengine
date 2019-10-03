@@ -27,7 +27,7 @@
     <!-- ko if: showButtons() == true -->
     <div class="row">
         <div class="col-md-3 col-md-offset-6">
-            <!-- ko if:afterCancel --><input type="button" class="btn btn-default" value="{{  kopa.translate(form_cancel_label) }}" data-bind="click:cancel"><!-- /ko -->
+            <!-- ko if:showCancelButton --><input type="button" class="btn btn-default" value="{{  kopa.translate(form_cancel_label) }}" data-bind="click:cancel"><!-- /ko -->
         </div>
         <div class="col-md-3">
             <input type="button" class="btn btn-primary" value="{{ kopa.translate(form_submit_label) }}" data-bind="click:submit">

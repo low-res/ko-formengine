@@ -35,6 +35,7 @@ define([
         this.form_cancel_label  = params.form_cancel_label || 'form_cancel_label'
         this.form_submit_label  = params.form_submit_label || 'form_submit_label'
         this.showButtons        = ko.observable( true  );
+        this.showCancelButton   = this.form.dismissHandlers.length > 0;
         if(params.showButtons!=undefined)  this.showButtons(params.showButtons);
 
         // make sure kopa filters are available
