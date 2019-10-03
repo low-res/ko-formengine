@@ -23,8 +23,15 @@ define([
             this.form               = new Form(params.formRows, params.source);
         }
 
-        this.afterSubmit        = params.afterSubmit;
-        this.afterCancel        = params.afterCancel || null;
+        if( params.afterSubmit ) {
+            console.warn( "Using the 'afterSubmit' parameter is deprecated! Please use the addSubmitHandler method of the form-object to define your submit callback." );
+            this.form.addSubmitHandler( params.afterSubmit );
+        }
+        if( params.afterCancel ) {
+            console.warn( "Using the 'afterCancel' parameter is deprecated! Please use the addDismissHandler method of the form-object to define your submit callback." );
+            this.form.addDismissHandler( params.afterCancel );
+        }
+
         this.form_cancel_label  = params.form_cancel_label || 'form_cancel_label'
         this.form_submit_label  = params.form_submit_label || 'form_submit_label'
         this.showButtons        = ko.observable( true  );
@@ -41,8 +48,7 @@ define([
         var isValid = this.form.validate();
         var proxyObject = null;
         if(isValid) {
-            proxyObject = this.form.getValues();
-            if( _.isFunction(this.afterSubmit) ) this.afterSubmit( proxyObject );
+            this.form.submit();
         } else {
             setTimeout( function () {
                 $('html, body').animate({
@@ -58,7 +64,7 @@ define([
 
     p.cancel = function () {
         console.log( "cancel form" );
-        if( _.isFunction(this.afterCancel) ) this.afterCancel(  );
+        this.form.dismiss();
     }
 
 

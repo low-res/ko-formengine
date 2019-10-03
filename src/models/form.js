@@ -13,6 +13,9 @@ define([
         this.inputfields    = ko.observableArray();
         this.source         = source;
 
+        this.submitHandlers = [];
+        this.dismissHandlers= [];
+
         this._prepareInputfieldModels();
     }
 
@@ -32,6 +35,28 @@ define([
         _.forEach(this.inputfields(), function (tmpInputfield) {
             tmpInputfield.clear();
         });
+    }
+
+
+    /**
+     * calls all registered submithandlers
+     */
+    p.submit = function() {
+        var values = this.getValues();
+        this.submitHandlers.forEach( function(handler) {
+            if(_.isFunction(handler)) handler( values );
+        } );
+    }
+
+
+    /**
+     * calls all registered dimiss handlers
+     */
+    p.dismiss = function(){
+        var values = this.getValues();
+        this.dismissHandlers.forEach( function(handler) {
+            if(_.isFunction(handler)) handler( values );
+        } );
     }
 
 
@@ -73,6 +98,24 @@ define([
         return _.map(this.inputfields(), function( tmpInputfield ) {
             return tmpInputfield.getFieldDefinition().name;
         });
+    }
+
+
+    p.addSubmitHandler = function( handler ) {
+        if(_.isFunction(handler)) {
+            this.submitHandlers.push(handler);
+        } else {
+            throw new Error("only functions can be added as submit handler");
+        }
+    }
+
+
+    p.addDismissHandler = function( handler ) {
+        if(_.isFunction(handler)) {
+            this.dismissHandlers.push(handler);
+        } else {
+            throw new Error("only functions can be added as dismiss handler");
+        }
     }
 
     /*************************************
