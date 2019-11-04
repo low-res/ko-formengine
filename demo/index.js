@@ -84,10 +84,16 @@ define( [
                     console.log( "dep options", depOptions );
                     return depOptions;
                 }
+            },
+            {
+                name:'file',
+                label:'file',
+                valueAccessor: 'file',
+                type:'file'
             }
         ],
         collections:[
-            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2']}
+            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2','file']}
         ]
     });
 
@@ -100,6 +106,9 @@ define( [
     };
 
     this.form = new Form(this.formrows, this.source);
+    this.form.addSubmitHandler( function( formvalues ) {
+        console.log( "submitHandler", formvalues );
+    });
 
     console.log( "start", ko.components.isRegistered("ko-formengine-form") );
     ko.applyBindings(  );

@@ -43,9 +43,15 @@ define([
      */
     p.submit = function() {
         var values = this.getValues();
+        var promisses = [];
         this.submitHandlers.forEach( function(handler) {
-            if(_.isFunction(handler)) handler( values );
+            if(_.isFunction(handler)) {
+                var result = handler( values );
+                // check if the result is a promisse
+                if( result && typeof result.then == 'function' ); promisses.push(result);
+            }
         } );
+        return promisses;
     }
 
 

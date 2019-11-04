@@ -133,6 +133,14 @@ define([
 
         if( Validator.containsValidation('numerical', this.fielddef.validation) ) processedValue = NumberParser.parseFloat(rawValue);
 
+        if( this.fielddef.valueForServerProcessor && _.isFunction(this.fielddef.valueForServerProcessor) ) {
+            processedValue = this.fielddef.valueForServerProcessor( rawValue, {
+                field:this.fielddef,
+                source:this.source,
+                context:this.context
+            } );
+        }
+
         return processedValue;
     }
 
