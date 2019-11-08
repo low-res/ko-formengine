@@ -10,7 +10,8 @@ define( [
             {
                 name: 'col1',
                 label: 'col1 label',
-                valueAccessor: 'col1'
+                valueAccessor: 'col1',
+                validation:"required"
             },
             {
                 name: 'col2',
@@ -89,7 +90,8 @@ define( [
                 name:'file',
                 label:'file',
                 valueAccessor: 'file',
-                type:'file'
+                type:'file',
+                validation:"required"
             }
         ],
         collections:[
@@ -102,7 +104,8 @@ define( [
         col1:"col1value",
         col2:"col 2 value",
         dep1:null,
-        dep2:null
+        dep2:null,
+        file:null
     };
 
     this.form = new Form(this.formrows, this.source);

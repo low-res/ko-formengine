@@ -43,7 +43,6 @@ define([
     }
 
 
-
     p.submit = function () {
         console.log( "submit" );
         var isValid = this.form.validate();
@@ -60,7 +59,6 @@ define([
         }
         return proxyObject;
     }
-
 
 
     p.cancel = function () {

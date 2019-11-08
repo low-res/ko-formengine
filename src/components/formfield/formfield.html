@@ -115,6 +115,24 @@
     <textarea id="{{inputfield.id}}" class="form-control" rows="3" data-bind="textInput: inputfield.value, attr: { tabindex:tabindex }"></textarea>
     <!-- /ko -->
 
+    <!-- ko if: inputfield.type=="file" -->
+        <!-- ko if: inputfield.getCurrentValue() -->
+            <span>{{ inputfield.getCurrentValue() }}</span>
+            &nbsp;&nbsp;
+            <button data-bind="click: function(){ $component.removeFile($data); }" title="delete document" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-trash">remove</span>
+            </button>
+
+            <button data-bind="click: function(){ $component.downloadFile($data) }" title="download document" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-download-alt">download</span>
+            </button>
+        <!-- /ko -->
+
+        <!-- ko if: !inputfield.getCurrentValue() -->
+            <ko-formengine-fileupload params="inputfield:inputfield"></ko-formengine-fileupload>
+        <!-- /ko -->
+    <!-- /ko -->
+
     <!-- ko if: errors() != "" -->
     <!-- ko if:!useInlineErrors() --><small title="{{ errors }}" class="errorindicator error-msg">{{{ errors }}}</small><!-- /ko -->
     <!-- ko if:useInlineErrors() --><span class="errorindicator inlineerror" data-bind="popover: errors,placement:'top'"><i class="glyphicon glyphicon-warning-sign"></i></span><!-- /ko -->
