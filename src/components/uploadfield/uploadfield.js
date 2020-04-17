@@ -33,7 +33,7 @@ define([
     
     p.getValue = function () {
         var input = this._getFileinputField();
-        console.log( "__getValue__", input.files );
+        // console.log( "__getValue__", input.files );
         return input ? input.files : null;
     }
 
