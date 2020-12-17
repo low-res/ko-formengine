@@ -41,6 +41,15 @@
     </div>
     <!-- /ko -->
 
+    <!-- ko if: inputfield.type=="datetime" -->
+    <div class='input-group date' >
+        <input id="{{inputfield.id}}"  type='text' class="form-control" data-bind="dateTimePicker: inputfield.value, dateTimePickerOptions: {locale: 'de', format: 'DD.MM.YYYY HH:mm', minDate:inputfield.getFieldDefinition().minDate, maxDate:inputfield.getFieldDefinition().maxDate}"/>
+        <span class="input-group-addon" data-bind="click:handleCalendarIconClick">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+    </div>
+    <!-- /ko -->
+
     <!-- ko if: inputfield.type=="select" -->
         <!-- ko if: inputfield.selectMultiple == true -->
         <select id="{{inputfield.id}}" class="form-control" name="{{inputfield.getFieldDefinition().label}}" data-bind="
