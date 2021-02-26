@@ -76,7 +76,11 @@ define([
 
 
     p.clear = function () {
-        this.setCurrentValue( null );
+        if( this._needsArrayAsValue() ) {
+            this.setCurrentValue( [] );
+        } else {
+            this.setCurrentValue( null );
+        }
     }
 
 
