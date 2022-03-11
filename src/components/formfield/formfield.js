@@ -81,6 +81,24 @@ define([
     }
 
 
+    p.toggleall = function( inputfield ) {
+        if(!inputfield.toggleAll) inputfield.toggleAll = false;
+        inputfield.toggleAll = !inputfield.toggleAll;
+
+        if(inputfield.toggleAll) {
+            var options = ko.utils.unwrapObservable(inputfield.getFieldDefinition().options);
+            console.log(options);
+            _.each(options, function(option){
+                inputfield.value.push(option);
+            })
+        } else {
+            inputfield.value.removeAll();
+        }
+        inputfield.value.valueHasMutated();
+
+        console.log(inputfield.value());
+    }
+
     /******************
      *  PRIVATE METHODS
      ******************/

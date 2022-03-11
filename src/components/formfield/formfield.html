@@ -94,21 +94,27 @@
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="checkbox" -->
-    <div class="clearfix">
-        <!-- ko foreach: inputfield.getFieldDefinition().options -->
-        <div class="checkbox">
-            <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.inputfield.isValid()}">
-                <input type="checkbox" name="{{$parent.inputfield.id}}" value="{{$data}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
-                {{{ $parent.inputfield.getFieldDefinition().labelprefix+$data | translate }}}
-
-                <!-- ko if: $parent.inputfield.getFieldDefinition().popover -->
-                <info-popover params="slug:'popover_'+$parent.inputfield.getFieldDefinition().popover"></info-popover>
-                <!-- /ko -->
-
-            </label>
+        <!-- ko if: inputfield.getFieldDefinition().selectDeselectAll -->
+        <div class="toggleall">
+            <p data-bind="click:toggleall(inputfield)">Toggle all</p>
         </div>
         <!-- /ko -->
-    </div>
+
+        <div class="clearfix">
+
+            <!-- ko foreach: inputfield.getFieldDefinition().options -->
+            <div class="checkbox">
+                <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.inputfield.isValid()}">
+                    <input type="checkbox" name="{{$parent.inputfield.id}}" value="{{$data}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
+                    {{{ $parent.inputfield.getFieldDefinition().labelprefix+$data | translate }}}
+                    <!-- ko if: $parent.inputfield.getFieldDefinition().popover -->
+                    <info-popover params="slug:'popover_'+$parent.inputfield.getFieldDefinition().popover"></info-popover>
+                    <!-- /ko -->
+
+                </label>
+            </div>
+            <!-- /ko -->
+        </div>
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="text" -->
