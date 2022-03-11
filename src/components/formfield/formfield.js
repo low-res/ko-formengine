@@ -87,7 +87,6 @@ define([
 
         if(inputfield.toggleAll) {
             var options = ko.utils.unwrapObservable(inputfield.getFieldDefinition().options);
-            console.log(options);
             _.each(options, function(option){
                 inputfield.value.push(option);
             })
@@ -95,8 +94,6 @@ define([
             inputfield.value.removeAll();
         }
         inputfield.value.valueHasMutated();
-
-        console.log(inputfield.value());
     }
 
     /******************
