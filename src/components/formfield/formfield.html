@@ -105,7 +105,7 @@
     <!-- ko if: inputfield.type=="checkbox" -->
         <!-- ko if: inputfield.getFieldDefinition().selectDeselectAll -->
         <div class="toggleall">
-            <p data-bind="click:toggleall(inputfield)">Toggle all</p>
+            <p data-bind="click:function(){$component.toggleall(inputfield);}">Toggle all</p>
         </div>
         <!-- /ko -->
 
