@@ -2,8 +2,12 @@ define( [
     'knockout',
     'low-res/ko-fielddefinitions/fieldsCollection',
     '../src/models/form',
-    'low-res/ko-formengine'
-], function ( ko, FieldsCollection, Form ) {
+    './customComponent/customComponent',
+    'low-res/ko-formengine',
+    'low-res/ko-bs-bindings'
+], function ( ko, FieldsCollection, Form, customComponent ) {
+
+    if(!ko.components.isRegistered("custom-component")) ko.components.register("custom-component", customComponent);
 
     this.fields = new FieldsCollection({
         fields:[
@@ -14,9 +18,17 @@ define( [
                 validation:"required"
             },
             {
+                name: 'timefield',
+                label: 'timefield',
+                valueAccessor: 'timefield',
+                type:'time',
+                validation:"required"
+            },
+            {
                 name: 'col2',
                 label: 'col2 label',
-                valueAccessor: 'col2'
+                valueAccessor: 'col2',
+                validation:"required"
             },
             {
                 name:'dep1',
@@ -90,12 +102,18 @@ define( [
                 name:'file',
                 label:'file',
                 valueAccessor: 'file',
-                type:'file',
-                validation:"required"
+                type:'file'
+            },
+            {
+                name:'customComponent',
+                label:'customComponet',
+                valueAccessor: 'customComponet',
+                type:'component',
+                componentName:'custom-component'
             }
         ],
         collections:[
-            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2','file']}
+            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent']}
         ]
     });
 
@@ -105,7 +123,9 @@ define( [
         col2:"col 2 value",
         dep1:null,
         dep2:null,
-        file:null
+        file:null,
+        timefield:'00:00',
+        customComponet:'custom text'
     };
 
     this.form = new Form(this.formrows, this.source);
@@ -114,6 +134,8 @@ define( [
     });
 
     console.log( "start", ko.components.isRegistered("ko-formengine-form") );
+
+
     ko.applyBindings(  );
 
 } );

@@ -5,7 +5,7 @@
         <!-- ko foreach:row -->
 
         <!-- ko if:$data.type == "field" && $data.width=="hidden"-->
-        <ko-formengine-field params="inputfield:$data.inputfield, hidden:true"></ko-formengine-field>
+            <ko-formengine-field params="inputfield:$data.inputfield, hidden:true"></ko-formengine-field>
         <!-- /ko -->
 
         <!-- ko if:$data.type == "field" && $data.width != "hidden"-->

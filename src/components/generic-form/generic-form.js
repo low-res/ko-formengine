@@ -40,6 +40,8 @@ define([
 
         // make sure kopa filters are available
         if(!ko.filters.translate) Kopa.init();
+
+        console.log(this.form);
     }
 
 
@@ -50,6 +52,7 @@ define([
         if(isValid) {
             this.form.submit();
         } else {
+            console.log("Validation Failed", isValid);
             setTimeout( function () {
                 $('html, body').animate({
                     scrollTop: $(".errorindicator").eq(0).parent().offset().top

@@ -7,6 +7,7 @@ System.config({
   },
 
   map: {
+    "Eonasdan/bootstrap-datetimepicker": "github:Eonasdan/tempus-dominus@4.17.49",
     "css": "github:systemjs/plugin-css@0.1.35",
     "jasmine-core": "npm:jasmine-core@3.4.0",
     "jquery": "npm:jquery@3.4.1",
@@ -31,6 +32,7 @@ System.config({
     "systemjs/plugin-css": "github:systemjs/plugin-css@0.1.37",
     "systemjs/plugin-text": "github:systemjs/plugin-text@0.0.11",
     "text": "github:systemjs/plugin-text@0.0.11",
+    "twbs/bootstrap": "github:twbs/bootstrap@3.4.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.5.0"
     },

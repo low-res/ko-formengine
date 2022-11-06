@@ -50,6 +50,15 @@
     </div>
     <!-- /ko -->
 
+    <!-- ko if: inputfield.type=="time" -->
+    <div class='input-group date' >
+        <input id="{{inputfield.id}}"  type='text' class="form-control" data-bind="dateTimePicker: inputfield.value, dateTimePickerOptions: {locale: 'de', format: 'hh:mm'}"/>
+        <span class="input-group-addon" data-bind="click:handleCalendarIconClick">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+    </div>
+    <!-- /ko -->
+
     <!-- ko if: inputfield.type=="select" -->
         <!-- ko if: inputfield.selectMultiple == true -->
         <select id="{{inputfield.id}}" class="form-control" name="{{inputfield.getFieldDefinition().label}}" data-bind="
@@ -146,6 +155,10 @@
         <!-- ko if: !inputfield.getCurrentValue() -->
             <ko-formengine-fileupload params="inputfield:inputfield"></ko-formengine-fileupload>
         <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: inputfield.type=="component" -->
+        <!-- ko component: { name:inputfield.fielddef.componentName, params:{inputfield:inputfield, source:source} } --><!-- /ko -->
     <!-- /ko -->
 
     <!-- ko if: errors() != "" -->
