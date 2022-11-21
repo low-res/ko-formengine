@@ -1,7 +1,7 @@
 <div class="uploadfield-widget" >
     <div class="input-append">
         <div class="uneditable-input">
-            <input type="file" class="invisible" id="{{uniqueName}}" name="{{uniqueName}}[]" multiple />
+            <input type="file" class="invisible" id="{{uniqueName}}" name="{{uniqueName}}[]" {{ multiple }} />
             <input type="text" data-bind="textInput:filelist" value="" class="form-control readonly" readonly>
         </div>
         <span class="btn btn-default btn-file">

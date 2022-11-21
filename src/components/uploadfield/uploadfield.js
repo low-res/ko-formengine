@@ -11,6 +11,7 @@ define([
         var self = this;
         this.inputfield = params.inputfield;
         this.uniqueName = "upload_"+this.inputfield.getFieldDefinition().name;
+        this.multiple = this.inputfield.getFieldDefinition().multiple ? "multiple" : "";
         this.recalcTrigger = ko.observable();
         this.inputfield.value = ko.pureComputed( function() {
             var dummy = self.recalcTrigger();

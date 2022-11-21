@@ -34,3 +34,14 @@ Custom components can be integrated with a fielddefinition like:
 Make sure to set the value of the inputfield from your custom component:
 
     this.inputfield.value( <your inputfield value> );
+
+The fileupload component can be configured to allow multiple files or just a single file:
+
+    {
+        name:'fieldname',
+        label:'fieldlabel',
+        valueAccessor: 'accessor of value',
+        type:'file',
+        multiple:'true' 
+    }
+
