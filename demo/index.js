@@ -102,7 +102,8 @@ define( [
                 name:'file',
                 label:'file',
                 valueAccessor: 'file',
-                type:'file'
+                type:'file',
+                multiple:true
             },
             {
                 name:'customComponent',
@@ -113,7 +114,7 @@ define( [
             }
         ],
         collections:[
-            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent']}
+            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent','file']}
         ]
     });
 
