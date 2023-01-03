@@ -23,6 +23,7 @@ define([
         this.errors         = ko.observableArray();
         this.type           = fielddef.type || "input";
         this.keyboardtype   = fielddef.keyboardtype || "text";
+        this.readonly       = fielddef.readonly ? 'readonly' : false;
         this.id             = this.fielddef.name ? this.fielddef.name + (Math.floor(Math.random()*100000) ) : "fieldid_"+Math.floor(Math.random()*100000);
         this.isValid        = ko.pureComputed( function () {
             var err = self.errors();

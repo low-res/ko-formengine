@@ -28,7 +28,8 @@ define( [
                 name: 'col2',
                 label: 'col2 label',
                 valueAccessor: 'col2',
-                validation:"required"
+                validation:"required",
+                readonly: true
             },
             {
                 name:'dep1',

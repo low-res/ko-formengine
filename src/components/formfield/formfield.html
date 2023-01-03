@@ -21,15 +21,15 @@
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="input" -->
-    <input id="{{inputfield.id}}" class="form-control" type="{{inputfield.keyboardtype}}" data-bind="
+    <input id="{{inputfield.id}}" class="form-control" type="{{inputfield.keyboardtype}}"  data-bind="
                 textInput: inputfield.value,
-                attr: { placeholder: inputfield.getFieldDefinition().placeholder, tabindex:tabindex },
+                attr: { placeholder: inputfield.getFieldDefinition().placeholder, tabindex:tabindex, readonly:inputfield.readonly },
                 hasFocus: inputfield.getFieldDefinition().hasFocus,
-                event: {blur: inputfield.validateOnlyIfValue }"/>
+                event: {blur: inputfield.validateOnlyIfValue }" />
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="password" -->
-    <input id="{{inputfield.id}}" class="form-control" type="password" data-bind="textInput: inputfield.value, attr:{tabindex:tabindex}" />
+    <input id="{{inputfield.id}}" class="form-control" type="password" data-bind="textInput: inputfield.value, attr:{tabindex:tabindex, readonly:inputfield.readonly}" />
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="date" -->
@@ -66,7 +66,7 @@
                     optionsText:inputfield.getFieldDefinition().optionsText,
                     selectedOptions:inputfield.value,
                     optionsCaption:window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
-                    attr: { tabindex:tabindex, size:inputfield.selectSize, multiple:inputfield.selectMultiple }">
+                    attr: { tabindex:tabindex, readonly:inputfield.readonly, size:inputfield.selectSize, multiple:inputfield.selectMultiple }">
         </select>
         <!-- /ko -->
 
@@ -77,7 +77,7 @@
                     optionsValue:inputfield.getFieldDefinition().optionsValue,
                     value:inputfield.value,
                     optionsCaption:window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
-                    attr: { tabindex:tabindex }">
+                    attr: { tabindex:tabindex, readonly:inputfield.readonly }">
         </select>
         <!-- /ko -->
     <!-- /ko -->
@@ -94,7 +94,7 @@
                 allowClear: false
             },
             css:{error:!inputfield.isValid()},
-            attr: { tabindex:tabindex }"
+            attr: { tabindex:tabindex, readonly:inputfield.readonly }"
             id="{{inputfield.id}}" style="width: 100%" class="form-control" name="{{inputfield.getFieldDefinition().label}}">
         <option></option>
     </select>
@@ -136,7 +136,7 @@
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="text" -->
-    <textarea id="{{inputfield.id}}" class="form-control" rows="3" data-bind="textInput: inputfield.value, attr: { tabindex:tabindex }"></textarea>
+    <textarea id="{{inputfield.id}}" class="form-control" rows="3" data-bind="textInput: inputfield.value, attr: { tabindex:tabindex, readonly:inputfield.readonly }"></textarea>
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="file" -->
