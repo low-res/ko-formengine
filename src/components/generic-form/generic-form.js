@@ -8,7 +8,8 @@ define([
     'low-res/ko-utils/misc/numberParser',
     'low-res/validator',
     'low-res/ko-punches-additions',
-    './generic-form.html!text'
+    './generic-form.html!text',
+    'moment-timezone'
 ], function ( ko, _, $, moment, Form, NumberParser, Validator, Kopa, templateMarkup ) {
 
     var p = GenericForm.prototype;

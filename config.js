@@ -26,7 +26,8 @@ System.config({
     "low-res/ko-utils": "github:low-res/ko-utils@master",
     "low-res/translator": "github:low-res/translator@master",
     "low-res/validator": "github:low-res/validator@master",
-    "moment": "npm:moment@2.24.0",
+    "moment": "npm:moment@2.29.4",
+    "moment-timezone": "npm:moment-timezone@0.5.40",
     "postal": "npm:postal@2.0.5",
     "select2/select2": "github:select2/select2@4.0.10",
     "systemjs/plugin-css": "github:systemjs/plugin-css@0.1.37",
@@ -110,7 +111,7 @@ System.config({
     },
     "github:low-res/formater@master": {
       "lodash": "npm:lodash@4.17.15",
-      "moment": "npm:moment@2.24.0",
+      "moment": "npm:moment@2.29.4",
       "numeral": "npm:numeral@2.0.6"
     },
     "github:low-res/ko-bs-bindings@master": {
@@ -1049,6 +1050,10 @@ System.config({
       "minimist": "npm:minimist@0.0.8",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:moment-timezone@0.5.40": {
+      "moment": "npm:moment@2.29.4",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:neo-async@2.6.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"

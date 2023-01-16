@@ -26,6 +26,7 @@
       "low-res/translator": "github:low-res/translator@master",
       "low-res/validator": "github:low-res/validator@master",
       "moment": "npm:moment@^2.20",
+      "moment-timezone": "npm:moment-timezone@^0.5.40",
       "postal": "npm:postal@^2.0",
       "select2/select2": "github:select2/select2@^4.0",
       "systemjs/plugin-css": "github:systemjs/plugin-css@^0.1.35",
