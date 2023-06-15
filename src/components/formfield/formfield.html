@@ -157,6 +157,10 @@
         <!-- /ko -->
     <!-- /ko -->
 
+    <!-- ko if: inputfield.type=="json" -->
+        <!-- ko component: { name:'custom-json-form', params:{inputfield:inputfield, source:source} } --><!-- /ko -->
+    <!-- /ko -->
+
     <!-- ko if: inputfield.type=="component" -->
         <!-- ko component: { name:inputfield.fielddef.componentName, params:{inputfield:inputfield, source:source} } --><!-- /ko -->
     <!-- /ko -->

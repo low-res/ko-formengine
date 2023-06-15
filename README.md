@@ -18,6 +18,7 @@ Predefined form types are:
 * text
 * file (fileupload)
 * time (the inputfiledvalue will nevertheless contain a date + time )
+* json (a nested form will be displayed showing a formfield for every key the JSON string should have. Only "plain" JSON objects are supported at the moment)
 
 Custom components can be integrated with a fielddefinition like:
 
@@ -35,7 +36,7 @@ Make sure to set the value of the inputfield from your custom component:
 
     this.inputfield.value( <your inputfield value> );
 
-The fileupload component can be configured to allow multiple files or just a single file:
+The **fileupload** component can be configured to allow multiple files or just a single file:
 
     {
         name:'fieldname',
@@ -45,3 +46,26 @@ The fileupload component can be configured to allow multiple files or just a sin
         multiple:'true' 
     }
 
+
+The **json** type needs an additional param in fielddefinition holding the definition of the formfields that schould be displayed.
+
+    {
+                name:'jsonfield',
+                label:'json',
+                valueAccessor: 'json',
+                type:'json',
+                fields: [
+                    {
+                        name: 'custom1',
+                        label: 'custom1',
+                        valueAccessor: 'custom1',
+                        validation:"required"
+                    },
+                    {
+                        name: 'custom2',
+                        label: 'custom2',
+                        valueAccessor: 'custom2',
+                        validation:"required"
+                    }
+                ]
+            }

@@ -9,6 +9,7 @@ define( [
 
     if(!ko.components.isRegistered("custom-component")) ko.components.register("custom-component", customComponent);
 
+
     this.fields = new FieldsCollection({
         fields:[
             {
@@ -112,10 +113,31 @@ define( [
                 valueAccessor: 'customComponet',
                 type:'component',
                 componentName:'custom-component'
+            },
+            {
+                name:'jsonfield',
+                label:'json',
+                valueAccessor: 'json',
+                type:'json',
+                fields: [
+                    {
+                        name: 'custom1',
+                        label: 'custom1',
+                        valueAccessor: 'custom1',
+                        validation:"required"
+                    },
+                    {
+                        name: 'custom2',
+                        label: 'custom2',
+                        valueAccessor: 'custom2',
+                        validation:"required"
+                    }
+                ]
+
             }
         ],
         collections:[
-            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent','file']}
+            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent','file','jsonfield']}
         ]
     });
 
@@ -127,7 +149,8 @@ define( [
         dep2:null,
         file:null,
         timefield:'00:00',
-        customComponet:'custom text'
+        customComponet:'custom text',
+        jsonfield:'{custom1:"val1", custom2:"val2}'
     };
 
     this.form = new Form(this.formrows, this.source);
