@@ -18,7 +18,7 @@ define([
         this.source = params.source;
         this.fields = this.inputfield.fielddef.fields;
 
-        if(!fields) console.error("You must have am param 'fields' in your fielddefinition, that holds the formfields that you wish to be displayed");
+        if(!this.fields) console.error("You must have am param 'fields' in your fielddefinition, that holds the formfields that you wish to be displayed");
 
         this.fields = new FieldsCollection({
             fields: self.fields,
