@@ -23,6 +23,7 @@ define([
                 var selectedOption  = bindingData.selectedOption( );
 
                 var r = [ ];
+
                 _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
                     if(obj) {
 
@@ -53,10 +54,17 @@ define([
                 var allBindings     = ko.unwrap(allBindingsAccessor());
                 var currentvalue    = ko.utils.unwrapObservable( allBindings.value );
 
-                bindingData.data = ko.bindingHandlers.select2.prepData( bindingData ); //prepareData();
+                bindingData.data = ko.bindingHandlers.select2.prepData( bindingData );
                 bindingData.placeholder = bindingData.optionscaption;
+
+                if(bindingData.remoteOptions && bindingData.remoteOptions.url ) {
+                    bindingData.ajax = bindingData.remoteOptions
+                    bindingData.minimumInputLength = 3;
+                }
+
                 console.log( "++++ INIT SELECT2 ++++", currentvalue );
                 console.log( "binding data", bindingData );
+                console.log( "allBindings data", allBindings );
 
                 window.$(el)
                     .select2(bindingData)

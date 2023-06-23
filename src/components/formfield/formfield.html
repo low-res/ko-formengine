@@ -88,15 +88,16 @@
             select2: {
                 selectedOption: inputfield.value,
                 options:inputfield.getFieldDefinition().options,
+                remoteOptions:inputfield.getFieldDefinition().remoteOptions,
                 optionsText:inputfield.getFieldDefinition().optionsText,
                 optionsValue:inputfield.getFieldDefinition().optionsValue,
                 optionscaption: window.kopa.translate(inputfield.getFieldDefinition().optionscaption),
-                allowClear: false
+                allowClear: true
             },
             css:{error:!inputfield.isValid()},
             attr: { tabindex:tabindex, readonly:inputfield.readonly }"
             id="{{inputfield.id}}" style="width: 100%" class="form-control" name="{{inputfield.getFieldDefinition().label}}">
-        <option></option>
+        <option value="">Please choose...</option>
     </select>
     <!-- /ko -->
 

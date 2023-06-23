@@ -69,3 +69,28 @@ The **json** type needs an additional param in fielddefinition holding the defin
                     }
                 ]
             }
+
+For **select2** one can define, that the options are fetched from a server via some endpoint. To archive this, the fielddefinition 
+must have an object with the key **remoteOptions**. This object must have an attribute with the key url, that holds the url to
+the desired endpoint. It can hold other attributes. everything defined here is passed directly to the ajax option of select2, like 
+it is described here: https://select2.org/data-sources/ajax. The endpoint should return the options in the format described in the select2 docs 
+(https://select2.org/data-sources/formats) or must be converted into this format in the processResults callback
+
+Example fielddefinition:
+
+    {
+                name:'selecttest',
+                label:'selecttest label',
+                valueAccessor: 'selecttest',
+                type:'select2',
+                options: [],
+                remoteOptions: {
+                    url: '/demo/select2Remotedata.json',
+                    processResults : function( data ){
+                        data.results.push({id:3,text:"postprocessed option"});
+                        return data;
+                    }
+                },
+                optionsValue:'value',
+                optionsText:'label'
+            },

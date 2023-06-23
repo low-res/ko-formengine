@@ -134,10 +134,35 @@ define( [
                     }
                 ]
 
-            }
+            },
+            {
+                name:'selecttest',
+                label:'selecttest label',
+                valueAccessor: 'selecttest',
+                type:'select2',
+                options: [
+                    {
+                        label:"A",
+                        value:"A"
+                    },
+                    {
+                        label:"B",
+                        value:"B"
+                    }
+                ],
+                remoteOptions: {
+                    url: '/demo/select2Remotedata.json',
+                    processResults : function( data ){
+                        data.results.push({id:3,text:"postprocessed option"});
+                        return data;
+                    }
+                },
+                optionsValue:'value',
+                optionsText:'label'
+            },
         ],
         collections:[
-            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent','file','jsonfield']}
+            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent','file','jsonfield','selecttest']}
         ]
     });
 
