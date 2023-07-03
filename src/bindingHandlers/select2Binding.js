@@ -83,15 +83,18 @@ define([
                 var bindingData     = ko.unwrap(valueAccessor());
 
                 var selectedOption = function () {
-                    var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
-                    return _.find( ko.utils.unwrapObservable(bindingData.options), function (obj) {
-                        if(obj) {
-                            return ko.utils.unwrapObservable( obj[idProp] ) == currentValue;
-                        } else {
-                            return false;
-                        }
-
-                    } )
+                    if(bindingData.remoteOptions && bindingData.remoteOptions.url ) {
+                        return window.$(el).val();
+                    } else {
+                        var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
+                        return _.find( ko.utils.unwrapObservable(bindingData.options), function (obj) {
+                            if(obj) {
+                                return ko.utils.unwrapObservable( obj[idProp] ) == currentValue;
+                            } else {
+                                return false;
+                            }
+                        } )
+                    }
                 };
                 var currentOption = selectedOption();
                 console.log( "--- update select2 ", currentValue, currentOption );

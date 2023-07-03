@@ -136,9 +136,9 @@ define( [
 
             },
             {
-                name:'selecttest',
-                label:'selecttest label',
-                valueAccessor: 'selecttest',
+                name:'select2',
+                label:'select2',
+                valueAccessor: 'select2',
                 type:'select2',
                 options: [
                     {
@@ -150,6 +150,21 @@ define( [
                         value:"B"
                     }
                 ],
+                optionsValue:'value',
+                optionsText:'label'
+            },
+
+            {
+                name:'selecttest',
+                label:'remote selecttest label',
+                valueAccessor: 'selecttest',
+                type:'select2',
+                options: [
+                    {
+                        "id": 2,
+                        "text": "remote Option 2"
+                    }
+                ],
                 remoteOptions: {
                     url: '/demo/select2Remotedata.json',
                     processResults : function( data ){
@@ -157,12 +172,12 @@ define( [
                         return data;
                     }
                 },
-                optionsValue:'value',
-                optionsText:'label'
+                optionsValue:'id',
+                optionsText:'text'
             },
         ],
         collections:[
-            {name:'edit', fields:['col2', 'col1', 'dep1', 'dep2', 'timefield','customComponent','file','jsonfield','selecttest']}
+            {name:'edit', rows:[['col2', 'col1'],[ 'dep1', 'dep2'], ['timefield','customComponent','file','jsonfield','select2','selecttest']]}
         ]
     });
 
@@ -175,7 +190,9 @@ define( [
         file:null,
         timefield:'00:00',
         customComponet:'custom text',
-        jsonfield:'{custom1:"val1", custom2:"val2}'
+        jsonfield:'{custom1:"val1", custom2:"val2}',
+        selecttest:2,
+        select2:'B'
     };
 
     this.form = new Form(this.formrows, this.source);
