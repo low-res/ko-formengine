@@ -2,11 +2,16 @@
 
 create forms from given configuration
 
-This package provides two models that can represent a form and its input fields. In addition, there are two matching KnockoutJS components that take over the frontend output of a form and the associated input fields. The definition of the form fields can be done purely declaratively. The form field definitions from the package ko-fielddefinitions are used for this.
+This package provides two models that can represent a form and its input fields. In addition, there are two matching
+KnockoutJS components that take over the frontend output of a form and the associated input fields. The definition of
+the form fields can be done purely declaratively. The form field definitions from the package ko-fielddefinitions are
+used for this.
 
-For form fields, there is a set of predefined field types whose representation and functionality is taken over by the enclosed KnockoutJS components. However, you can also define your own components as form field types.
+For form fields, there is a set of predefined field types whose representation and functionality is taken over by the
+enclosed KnockoutJS components. However, you can also define your own components as form field types.
 
 Predefined form types are:
+
 * input
 * password
 * date
@@ -18,7 +23,8 @@ Predefined form types are:
 * text
 * file (fileupload)
 * time (the inputfiledvalue will nevertheless contain a date + time )
-* json (a nested form will be displayed showing a formfield for every key the JSON string should have. Only "plain" JSON objects are supported at the moment)
+* json (a nested form will be displayed showing a formfield for every key the JSON string should have. Only "plain" JSON
+  objects are supported at the moment)
 
 Custom components can be integrated with a fielddefinition like:
 
@@ -46,8 +52,8 @@ The **fileupload** component can be configured to allow multiple files or just a
         multiple:'true' 
     }
 
-
-The **json** type needs an additional param in fielddefinition holding the definition of the formfields that schould be displayed.
+The **json** type needs an additional param in fielddefinition holding the definition of the formfields that schould be
+displayed.
 
     {
                 name:'jsonfield',
@@ -70,11 +76,20 @@ The **json** type needs an additional param in fielddefinition holding the defin
                 ]
             }
 
-For **select2** one can define, that the options are fetched from a server via some endpoint. To archive this, the fielddefinition 
-must have an object with the key **remoteOptions**. This object must have an attribute with the key url, that holds the url to
-the desired endpoint. It can hold other attributes. everything defined here is passed directly to the ajax option of select2, like 
-it is described here: https://select2.org/data-sources/ajax. The endpoint should return the options in the format described in the select2 docs 
+For **select2** one can define, that the options are fetched from a server via some endpoint. To archive this, the
+fielddefinition
+must have an object with the key **remoteOptions**. This object must have an attribute with the key url, that holds the
+url to
+the desired endpoint. It can hold other attributes. everything defined here is passed directly to the ajax option of
+select2, like
+it is described here: https://select2.org/data-sources/ajax. The endpoint should return the options in the format
+described in the select2 docs
 (https://select2.org/data-sources/formats) or must be converted into this format in the processResults callback
+
+Additionally you can define a **preselectedOptionCallback**. This is a method, that is called with the id of the
+preselected option. It should return a promisse, that resolves with the preselected option. This option will be
+preselected in the select2 field. This is usefull, if you want to display the label of the preselected option in the
+select2 field, when you show the formfield.
 
 Example fielddefinition:
 
@@ -91,6 +106,9 @@ Example fielddefinition:
                         return data;
                     }
                 },
+                preselectedOptionCallback: function( id ){
+                    // some mehtod that fetches the preselectedOption and returns a promisse
+                }
                 optionsValue:'value',
                 optionsText:'label'
             },

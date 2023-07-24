@@ -52,7 +52,7 @@ define([
             init: function (el, valueAccessor, allBindingsAccessor, viewModel) {
                 var bindingData     = ko.unwrap(valueAccessor());
                 var allBindings     = ko.unwrap(allBindingsAccessor());
-                var currentvalue    = ko.utils.unwrapObservable( allBindings.value );
+                var currentvalue    = ko.utils.unwrapObservable( bindingData.selectedOption );
 
                 bindingData.data = ko.bindingHandlers.select2.prepData( bindingData );
                 bindingData.placeholder = bindingData.optionscaption;
@@ -67,8 +67,35 @@ define([
                 console.log( "allBindings data", allBindings );
 
                 window.$(el)
-                    .select2(bindingData)
+                    .select2( bindingData )
                     .focus(function () { $(this).select2('open'); });
+
+                // if select2 has remote options add the preselected option
+                if(bindingData.remoteOptions && bindingData.remoteOptions.url ) {
+                    console.log("append current selection ", currentvalue, allBindings)
+                    console.log( "preselectedOptionCallback", bindingData )
+                    if(bindingData.preselectedOptionCallback) {
+                        var idProp = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
+
+                        bindingData.preselectedOptionCallback(currentvalue)
+                            .then( function( preselectedOption ) {
+                                let o = preselectedOption.data;
+                                let id = o[idProp];
+                                let text = ""
+
+                                if(_.isFunction(bindingData.optionsText)) {
+                                    text = bindingData.optionsText(o);
+                                } else {
+                                    text = ko.utils.unwrapObservable(o[bindingData.optionsText]);
+                                }
+                                console.log("preselectedOption", o, idProp, id, text);
+
+                                var option = new Option(text, id, true, true);
+                                window.$(el).append(option).trigger('change');
+                            });
+                    }
+
+                }
 
                 ko.utils.domNodeDisposal.addDisposeCallback(el, function () {
                     window.$(el).select2('destroy');

@@ -177,11 +177,13 @@ define( [
             },
         ],
         collections:[
-            {name:'edit', rows:[['col2', 'col1'],[ 'dep1', 'dep2'], ['timefield','customComponent','file','jsonfield','select2','selecttest']]}
+            {name:'edit', rows:[['col2', 'col1'],[ 'dep1', 'dep2'], ['timefield','customComponent','file','jsonfield','select2','selecttest']]},
+            {name:'remoteoptions', rows:[['selecttest']]}
         ]
     });
 
-    this.formrows = this.fields.getFormRows('edit')
+    this.formrows = this.fields.getFormRows('edit');
+    this.formrows = this.fields.getFormRows('remoteoptions');
     this.source = {
         col1:"col1value",
         col2:"col 2 value",
