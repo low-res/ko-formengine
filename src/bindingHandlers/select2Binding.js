@@ -20,8 +20,7 @@ define([
             prepData: function( bindingData ) {
 
                 var idProp          = bindingData.optionsValue ? bindingData.optionsValue : bindingData.optionsText;
-                var selectedOption  = bindingData.selectedOption( );
-
+                var selectedOption  = bindingData.selectedOption( ); // == inputfield.value (is an observable)
                 var r = [ ];
 
                 _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
@@ -109,7 +108,7 @@ define([
                 var currentValue    = allBindings.value();
                 var bindingData     = ko.unwrap(valueAccessor());
 
-                var selectedOption = function () {
+                var currentOption = function () {
                     if(bindingData.remoteOptions && bindingData.remoteOptions.url ) {
                         return window.$(el).val();
                     } else {
@@ -123,10 +122,11 @@ define([
                         } )
                     }
                 };
-                var currentOption = selectedOption();
-                console.log( "--- update select2 ", currentValue, currentOption );
-                if(currentOption && bindingData.selectedOption() != currentOption) {
-                    bindingData.selectedOption( currentOption );
+                //var currentOption = selectedOption();
+                console.log( "--- update select2 ", currentValue, currentOption() );
+                if(_.isEmpty(currentValue) ) window.$(el).val(null).trigger('change');
+                if(currentOption && bindingData.selectedOption() != currentOption() ) {
+                    bindingData.selectedOption( currentOption() );
                 }
             }
         };
