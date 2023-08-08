@@ -142,12 +142,16 @@ define( [
                 type:'select2',
                 options: [
                     {
-                        label:"A",
+                        label:"A Label",
                         value:"A"
                     },
                     {
-                        label:"B",
+                        label:"B Label",
                         value:"B"
+                    },
+                    {
+                        label:"C Label",
+                        value:"C"
                     }
                 ],
                 optionsValue:'value',
@@ -178,7 +182,7 @@ define( [
         ],
         collections:[
             {name:'edit', rows:[['col2', 'col1'],[ 'dep1', 'dep2'], ['timefield','customComponent','file','jsonfield','select2','selecttest']]},
-            {name:'remoteoptions', rows:[['selecttest']]}
+            {name:'remoteoptions', rows:[['selecttest','select2']]}
         ]
     });
 
@@ -194,13 +198,18 @@ define( [
         customComponet:'custom text',
         jsonfield:'{custom1:"val1", custom2:"val2}',
         selecttest:2,
-        select2:'B'
+        select2:'C'
     };
 
     this.form = new Form(this.formrows, this.source);
+    this.formvalues = ko.observable();
+    var self = this;
     this.form.addSubmitHandler( function( formvalues ) {
         console.log( "submitHandler", formvalues );
+        self.formvalues( JSON.stringify(formvalues) );
     });
+
+
 
     console.log( "start", ko.components.isRegistered("ko-formengine-form") );
 

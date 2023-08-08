@@ -1,7 +1,7 @@
 start server
 
     cd <packageroot>
-    node_modules/serve/bin/serve
+    node_modules/serve/.bin/serve
     
 goto
 

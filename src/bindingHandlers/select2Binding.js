@@ -52,6 +52,7 @@ define([
                 var bindingData     = ko.unwrap(valueAccessor());
                 var allBindings     = ko.unwrap(allBindingsAccessor());
                 var currentvalue    = ko.utils.unwrapObservable( bindingData.selectedOption );
+                // var currentvalue    = ko.utils.unwrapObservable( allBindings.value );
 
                 bindingData.data = ko.bindingHandlers.select2.prepData( bindingData );
                 bindingData.placeholder = bindingData.optionscaption;
@@ -102,11 +103,12 @@ define([
             },
 
             update: function (el, valueAccessor, allBindingsAccessor) {
-                console.log( "+++ UPDATE", arguments );
 
                 var allBindings     = allBindingsAccessor();
-                var currentValue    = allBindings.value();
-                var bindingData     = ko.unwrap(valueAccessor());
+                var currentValue    = allBindings.value() ;
+                var bindingData     = ko.unwrap( valueAccessor() );
+                currentValue = currentValue ? currentValue : window.$(el).val();
+                console.log( "+++ UPDATE", currentValue );
 
                 var currentOption = function () {
                     if(bindingData.remoteOptions && bindingData.remoteOptions.url ) {
