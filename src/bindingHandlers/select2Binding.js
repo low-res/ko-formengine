@@ -107,10 +107,12 @@ define([
                 var allBindings     = allBindingsAccessor();
                 var currentValue    = allBindings.value() ;
                 var bindingData     = ko.unwrap( valueAccessor() );
-                currentValue = currentValue ? currentValue : window.$(el).val();
-                console.log( "+++ UPDATE", currentValue );
+                currentValue        = currentValue ? currentValue : window.$(el).val();
+                console.log( "+++ UPDATE" );
+                console.log( "currentValue:", currentValue );
+                // console.log( "bindingData.selectedOption:", bindingData.selectedOption() );
 
-                var currentOption = function () {
+                var getCurrentOption = function () {
                     if(bindingData.remoteOptions && bindingData.remoteOptions.url ) {
                         return window.$(el).val();
                     } else {
@@ -124,11 +126,16 @@ define([
                         } )
                     }
                 };
-                //var currentOption = selectedOption();
-                console.log( "--- update select2 ", currentValue, currentOption() );
-                if(_.isEmpty(currentValue) ) window.$(el).val(null).trigger('change');
-                if(currentOption && bindingData.selectedOption() != currentOption() ) {
-                    bindingData.selectedOption( currentOption() );
+                var currentOption = getCurrentOption();
+                // console.log( "--- currentOption ", currentOption );
+                if(_.isEmpty(currentValue) ) {
+                    // console.log("currentValue is empty. Trigger reset");
+                    window.$(el).val(null).trigger('change');
+                    bindingData.selectedOption( null );
+                }
+                if(currentOption && bindingData.selectedOption() != currentOption ) {
+                    console.log("set select2 value to ", currentOption);
+                    bindingData.selectedOption( currentOption );
                 }
             }
         };
