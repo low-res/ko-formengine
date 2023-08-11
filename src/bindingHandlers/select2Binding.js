@@ -25,14 +25,24 @@ define([
 
                 _.forEach( ko.utils.unwrapObservable(bindingData.options), function ( obj ) {
                     if(obj) {
-
                         var t = "";
-                        var idValue = ko.utils.unwrapObservable( obj[idProp] );
+                        var idValue ="";
 
-                        if(_.isFunction(bindingData.optionsText)) {
-                            t = bindingData.optionsText(obj);
+                        if(_.isString(obj)) {
+                            // in case we simply have an array of strings as options, we use the string
+                            // as id and text
+                            idValue = obj;
+                            t = obj;
+
                         } else {
-                            t = ko.utils.unwrapObservable(obj[bindingData.optionsText]);
+                            // otherwise we use the idProp and optionsText to get the id and text
+                            idValue = ko.utils.unwrapObservable( obj[idProp] );
+
+                            if(_.isFunction(bindingData.optionsText)) {
+                                t = bindingData.optionsText(obj);
+                            } else {
+                                t = ko.utils.unwrapObservable(obj[bindingData.optionsText]);
+                            }
                         }
 
                         var tmpItem = {
