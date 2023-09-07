@@ -157,7 +157,6 @@ define( [
                 optionsValue:'value',
                 optionsText:'label'
             },
-
             {
                 name:'selecttest',
                 label:'remote selecttest label',
@@ -179,15 +178,34 @@ define( [
                 optionsValue:'id',
                 optionsText:'text'
             },
+            {
+                name:'datetimetz',
+                label:'datetimetz',
+                valueAccessor: 'datetimetz',
+                type:'datetime-tz'
+            },
+            {
+                name: 'inputmask',
+                label: 'inputmask',
+                valueAccessor: 'inputmask',
+                validation:"required",
+                placeholder:'____-____-____-____',
+                mask:'____-____-____-____',
+                mask_slots:'_',
+                mask_accept:'[0-9]',
+            },
         ],
         collections:[
             {name:'edit', rows:[['col2', 'col1'],[ 'dep1', 'dep2'], ['timefield','customComponent','file','jsonfield','select2','selecttest']]},
-            {name:'remoteoptions', rows:[['selecttest','select2']]}
+            {name:'remoteoptions', rows:[['selecttest','select2']]},
+            {name:'datetimetz', rows:[['inputmask'],['datetimetz']]}
         ]
     });
 
     this.formrows = this.fields.getFormRows('edit');
     this.formrows = this.fields.getFormRows('remoteoptions');
+    this.formrows = this.fields.getFormRows('datetimetz');
+
     this.source = {
         col1:"col1value",
         col2:"col 2 value",
@@ -198,8 +216,10 @@ define( [
         customComponet:'custom text',
         jsonfield:'{custom1:"val1", custom2:"val2}',
         selecttest:2,
-        select2:'C'
+        select2:'C',
+        datetimetz:'{ "tz":"Asia/Tokyo","date":"2023-09-01T00:00" }',
     };
+
 
     this.form = new Form(this.formrows, this.source);
     this.formvalues = ko.observable();

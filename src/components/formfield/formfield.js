@@ -42,6 +42,8 @@ define([
             return res;
         });
 
+        setTimeout( function () { self._initInputmask(); }, 1000 );
+
     }
 
 
@@ -96,9 +98,48 @@ define([
         inputfield.value.valueHasMutated();
     }
 
+
+    // Inputmask handling
+
     /******************
      *  PRIVATE METHODS
      ******************/
+
+    p._initInputmask = function () {
+        let mask = this.inputfield.getFieldDefinition().mask;
+        let mask_slots = this.inputfield.getFieldDefinition().mask_slots;
+        let mask_accept = this.inputfield.getFieldDefinition().mask_accept;
+        if( mask && mask_slots && mask_accept ) {
+            const el = document.getElementById(this.inputfield.id);
+            console.log( "init inputmask", el);
+            const pattern = mask,
+                slots = new Set(mask_slots || "_"),
+                prev = (j => Array.from(pattern, (c,i) => slots.has(c)? j=i+1: j))(0),
+                first = [...pattern].findIndex(c => slots.has(c)),
+                accept = new RegExp(mask_accept || "\\d", "g"),
+                clean = input => {
+                    input = input.match(accept) || [];
+                    return Array.from(pattern, c =>
+                        input[0] === c || slots.has(c) ? input.shift() || c : c
+                    );
+                },
+                format = () => {
+                    const [i, j] = [el.selectionStart, el.selectionEnd].map(i => {
+                        i = clean(this.inputfield.value().slice(0, i)).findIndex(c => slots.has(c));
+                        return i<0? prev[prev.length-1]: back? prev[i-1] || first: i;
+                    });
+                    this.inputfield.value(clean(this.inputfield.value()).join``);
+                    el.setSelectionRange(i, j);
+                    back = false;
+                };
+            let back = false;
+            el.addEventListener("keydown", (e) => back = e.key === "Backspace");
+            el.addEventListener("input", format);
+            el.addEventListener("focus", format);
+            el.addEventListener("blur", () => this.inputfield.value() === pattern && (this.inputfield.value("")));
+        }
+
+    }
 
     p.dispose = function () {
         console.log( "-- dispose FormfieldWidget --" );

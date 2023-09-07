@@ -25,7 +25,9 @@
                 textInput: inputfield.value,
                 attr: { placeholder: inputfield.getFieldDefinition().placeholder, tabindex:tabindex, readonly:inputfield.readonly },
                 hasFocus: inputfield.getFieldDefinition().hasFocus,
-                event: {blur: inputfield.validateOnlyIfValue }" />
+                event: {
+                    blur: inputfield.validateOnlyIfValue
+                }" />
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="password" -->
@@ -161,6 +163,10 @@
 
     <!-- ko if: inputfield.type=="json" -->
         <!-- ko component: { name:'custom-json-form', params:{inputfield:inputfield, source:source} } --><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: inputfield.type=="datetime-tz" -->
+        <!-- ko component: { name:'ko-formengine-datetimetz', params:{inputfield:inputfield, source:source} } --><!-- /ko -->
     <!-- /ko -->
 
     <!-- ko if: inputfield.type=="component" -->

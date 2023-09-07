@@ -25,6 +25,7 @@ Predefined form types are:
 * time (the inputfiledvalue will nevertheless contain a date + time )
 * json (a nested form will be displayed showing a formfield for every key the JSON string should have. Only "plain" JSON
   objects are supported at the moment)
+* datetime-tz (datetime input with additional timezone input)
 
 Custom components can be integrated with a fielddefinition like:
 
@@ -112,3 +113,27 @@ Example fielddefinition:
                 optionsValue:'value',
                 optionsText:'label'
             },
+
+**datetime-tz** is a datetime input with an additional timezone input. The value of this field is a JSON string in the form
+of:
+
+    {
+        "date": "2021-03-01T00:00:00",
+        "timezone": "Europe/Berlin"
+    }
+
+The date is always UTC. The conversion from/to the selected timezone is handeled automatically
+
+inputmasks can be defined in the fielddefinition. The inputmask is applied automatically if the attributes mask, mask_slots and mask_accept
+are available in the fielddefinition. mask_accept can be any string that can be interpreted as RegEx. 
+Example:
+
+    {
+        name:'inputmask',
+        label:'inputmask',
+        valueAccessor: 'inputmask',
+        type:'input',
+        mask: '__.__.____',
+        mask_slots:  '_',
+        mask_accept: '\d'
+    }

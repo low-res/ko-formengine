@@ -5,7 +5,7 @@ define([
     'jquery',
     'low-res/validator',
     'low-res/ko-fielddefinitions/fieldsCollection',
-    '../../models/form',
+    '../../../models/form',
     './customComponentJsonForm.html!text',
 ], function (ko, _, $, Validator, FieldsCollection, Form, templateMarkup) {
 

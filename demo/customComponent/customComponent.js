@@ -17,7 +17,7 @@ define([
         this.source = params.source;
         this.mycomponentValue = ko.observable( this.inputfield.value() );
         this.mycomponentValue.subscribe( function(newValue){
-            console.log("soemthing changed in internal value", arguments);
+            console.log("something changed in internal value", arguments);
             let parts = newValue.split(",");
             let jsonStr = JSON.stringify(parts);
             self.inputfield.value( jsonStr );
