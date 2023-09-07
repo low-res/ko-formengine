@@ -18,7 +18,7 @@ define([
 
         this.fields = new FieldsCollection({
             fields: [
-                {name:'tz', type:'select', label:'Timezone', valueAccessor:'tz', options:['Asia/Tokyo', 'Europe/Berlin', 'UTC', 'America/New_York'] },
+                {name:'tz', type:'select', label:'Timezone', valueAccessor:'tz', options: params.inputfield.getFieldDefinition().timezones},
                 {name:'date', type:'input', keyboardtype:'datetime-local', label:'Date', valueAccessor:'date', format:'YYYY-MM-DD' },
             ],
             collections:[

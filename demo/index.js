@@ -182,7 +182,12 @@ define( [
                 name:'datetimetz',
                 label:'datetimetz',
                 valueAccessor: 'datetimetz',
-                type:'datetime-tz'
+                type:'datetime-tz',
+                timezones: [
+                    'Asia/Tokyo',
+                    'Europe/Berlin',
+                    'UTC',
+                ]
             },
             {
                 name: 'inputmask',

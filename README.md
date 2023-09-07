@@ -122,9 +122,26 @@ of:
         "timezone": "Europe/Berlin"
     }
 
-The date is always UTC. The conversion from/to the selected timezone is handeled automatically
+The date is always UTC. The conversion from/to the selected timezone is handeled automatically.
 
-inputmasks can be defined in the fielddefinition. The inputmask is applied automatically if the attributes mask, mask_slots and mask_accept
+The fielddefinition for datetine-tz should contain a list of timezones you want to display in the timezone select. 
+The list can be defined in the fielddefinition like this:
+
+    {
+        name:'datetimetz',
+        label:'datetime-tz',
+        valueAccessor: 'datetimetz',
+        type:'datetime-tz',
+        timezones: [
+            "Europe/Berlin",
+            "Europe/London",
+            "America/New_York",
+            "America/Los_Angeles"
+        ]
+    }
+
+
+**inputmasks** can be defined in the fielddefinition. The inputmask is applied automatically if the attributes mask, mask_slots and mask_accept
 are available in the fielddefinition. mask_accept can be any string that can be interpreted as RegEx. 
 Example:
 
