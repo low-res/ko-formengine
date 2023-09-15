@@ -12,7 +12,7 @@ define([
     var p = FormfieldWidget.prototype;
 
     function FormfieldWidget(params) {
-        var self                = this;
+        var self= this;
 
         this.fielddef           = params.fielddef;
         this.source             = ko.utils.unwrapObservable(params.source);
@@ -99,7 +99,37 @@ define([
     }
 
 
-    // Inputmask handling
+    // in order to use optionsText and optionsValue settings in the same manner as for select
+    // we implement the handling of those settings here. They are used for checkboxes and radio buttons
+
+    // optionsText can be a string containing the attribute name of the option object or a function
+    // that returns the text for the option
+    p.getOptionValue = function ( option ) {
+        let optionsValue = this.inputfield.getFieldDefinition().optionsValue;
+        if( optionsValue ) {
+            if(_.isString(optionsValue)) {
+                return ko.utils.unwrapObservable(option[optionsValue]);
+            } else if(_.isFunction(optionsValue)) {
+                return optionsValue(option, this.inputfield);
+            }
+        } else {
+            return option;
+        }
+    }
+
+    p.getOptionLabel = function ( option ) {
+        let optionsLabel = this.inputfield.getFieldDefinition().optionsText;
+        let labelprefix = this.inputfield.getFieldDefinition().labelprefix;
+        if( optionsLabel ) {
+            if(_.isString(optionsLabel)) {
+                return ko.utils.unwrapObservable(option[optionsLabel]);
+            } else if(_.isFunction(optionsLabel)) {
+                return optionsLabel(option, this.inputfield);
+            }
+        } else {
+            return kopa.translate(labelprefix+option);
+        }
+    }
 
     /******************
      *  PRIVATE METHODS

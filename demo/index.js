@@ -199,17 +199,60 @@ define( [
                 mask_slots:'_',
                 mask_accept:'[0-9]',
             },
+            {
+                name:'checkboxes',
+                type:'checkbox',
+                label:'Checkboxes with labels',
+                valueAccessor:'prop1',
+                options: [{prop1:"A", prop2:"B"}, {prop1:"C", prop2:"D"}],
+                optionsValue: function( rawOption, inputfield ){
+                    return rawOption.prop1+"_"+rawOption.prop2;
+                },
+                optionsText:'prop2'
+            },
+            {
+                name:'checkboxes_prefix',
+                type:'checkbox',
+                label:'Checkboxes with labelprefix',
+                valueAccessor:'prop1',
+                options: ["A", "B"],
+                labelprefix:'labelprefix'
+            },
+            {
+                name:'radiobuttons',
+                type:'radio',
+                label:'radiobuttons with labels',
+                valueAccessor:'prop1',
+                options: [{prop1:"A", prop2:"B"}, {prop1:"C", prop2:"D"}],
+                optionsValue:'prop1',
+                optionsText:'prop2'
+            },
+            {
+                name:'radiobuttons_prefix',
+                type:'radio',
+                label:'Radio with labelprefix',
+                valueAccessor:'prop1',
+                options: ["A", "B"],
+                labelprefix:'labelprefix'
+            },
         ],
         collections:[
             {name:'edit', rows:[['col2', 'col1'],[ 'dep1', 'dep2'], ['timefield','customComponent','file','jsonfield','select2','selecttest']]},
             {name:'remoteoptions', rows:[['selecttest','select2']]},
-            {name:'datetimetz', rows:[['inputmask'],['datetimetz']]}
+            {name:'datetimetz', rows:[
+                ['inputmask'],['datetimetz'],
+                ]},
+            {name:'checkboxes', rows:[
+                    ['checkboxes'],['checkboxes_prefix'],
+                    ['radiobuttons'],['radiobuttons_prefix'],
+                ]}
         ]
     });
 
     this.formrows = this.fields.getFormRows('edit');
     this.formrows = this.fields.getFormRows('remoteoptions');
     this.formrows = this.fields.getFormRows('datetimetz');
+    this.formrows = this.fields.getFormRows('checkboxes');
 
     this.source = {
         col1:"col1value",

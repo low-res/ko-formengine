@@ -37,6 +37,35 @@ Custom components can be integrated with a fielddefinition like:
         componentName:'custom-component'
     }
 
+**select**, **select2**, **radio**, **checkbox** can be defined with a list of options:
+
+    {
+        name:'fieldname',
+        label:'fieldlabel',
+        valueAccessor: 'accessor of value',
+        type:'radio',
+        options: [
+            {label:'option1',value:'value1'},
+            {label:'option2',value:'value2'}
+        ]
+    }
+
+ifi you specify a **optionsValue** and **optionsText** attribute, the options will be generated from the valueAccessor.
+it could be a string or an function
+
+        {
+            name:'fieldname',
+            label:'fieldlabel',
+            valueAccessor: 'accessor of value',
+            type:'radio',
+            options: [
+              {proplabel:'option1',prop2:'value1'},
+              {proplabel:'option2',prop2:'value2'}
+            ]
+            optionsValue:'prop2',
+            optionsText: function( option, inputfield ){ return kopa.translate("someprefix."+option.proplabel); }
+        }
+
 **type:"componet"** and a valid component in **componentName** are mandatory.
 
 Make sure to set the value of the inputfield from your custom component:

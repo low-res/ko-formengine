@@ -107,9 +107,9 @@
     <!-- ko if: inputfield.type=="radio" -->
     <div class="clearfix">
         <!-- ko foreach: inputfield.getFieldDefinition().options -->
-        <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($data.label)}, css:{error:!$parent.inputfield.isValid()}">
-            <input  type="radio" name="{{$parent.inputfield.id}}" value="{{$data.value}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($data.label), tabindex:$parent.tabindex }">
-            {{ $data.label | translate }}
+        <label  class="radio-inline" data-bind="attr: {for:$component.calculateInputId($component.getOptionValue($data))}, css:{error:!$parent.inputfield.isValid()}">
+            <input  type="radio" name="{{$parent.inputfield.id}}" value="{{$component.getOptionValue($data)}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($component.getOptionValue($data)), tabindex:$parent.tabindex }">
+            {{{ $component.getOptionLabel($data) }}}
         </label>
         <!-- /ko -->
     </div>
@@ -126,9 +126,9 @@
 
             <!-- ko foreach: inputfield.getFieldDefinition().options -->
             <div class="checkbox">
-                <label data-bind="attr: {for:$component.calculateInputId($data)}, css:{error:!$parent.inputfield.isValid()}">
-                    <input type="checkbox" name="{{$parent.inputfield.id}}" value="{{$data}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($data), tabindex:$parent.tabindex }">
-                    {{{ $parent.inputfield.getFieldDefinition().labelprefix+$data | translate }}}
+                <label data-bind="attr: {for:$component.calculateInputId( $component.getOptionValue($data) )}, css:{error:!$parent.inputfield.isValid()}">
+                    <input type="checkbox" name="{{$parent.inputfield.id}}" value="{{$component.getOptionValue($data)}}" data-bind="checked: $parent.inputfield.value, attr: { id:$component.calculateInputId($component.getOptionValue($data)), tabindex:$parent.tabindex }">
+                    {{{ $component.getOptionLabel($data) }}}
                     <!-- ko if: $parent.inputfield.getFieldDefinition().popover -->
                     <info-popover params="slug:'popover_'+$parent.inputfield.getFieldDefinition().popover"></info-popover>
                     <!-- /ko -->
