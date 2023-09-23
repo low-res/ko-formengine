@@ -98,7 +98,6 @@ define([
         inputfield.value.valueHasMutated();
     }
 
-
     // in order to use optionsText and optionsValue settings in the same manner as for select
     // we implement the handling of those settings here. They are used for checkboxes and radio buttons
 

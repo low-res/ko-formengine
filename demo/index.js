@@ -187,7 +187,8 @@ define( [
                     'Asia/Tokyo',
                     'Europe/Berlin',
                     'UTC',
-                ]
+                ],
+                validation:"required"
             },
             {
                 name: 'inputmask',
@@ -252,7 +253,7 @@ define( [
     this.formrows = this.fields.getFormRows('edit');
     this.formrows = this.fields.getFormRows('remoteoptions');
     this.formrows = this.fields.getFormRows('datetimetz');
-    this.formrows = this.fields.getFormRows('checkboxes');
+    //this.formrows = this.fields.getFormRows('checkboxes');
 
     this.source = {
         col1:"col1value",
