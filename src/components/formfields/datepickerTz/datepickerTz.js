@@ -34,7 +34,7 @@ define([
         let validationTZ = validationDate != "" ? "required" : "";
         this.tzinput    = new Inputfield({name:'tz', type:'select', label:'', valueAccessor:'tz', options: params.inputfield.getFieldDefinition().timezones, validation:validationTZ}, this.source);
         this.dateinput  = new Inputfield({name:'date', type:'input', keyboardtype:'datetime-local', label:'', valueAccessor:'date', format:'YYYY-MM-DD', validation:validationDate }, this.source);
-
+        this.dateinput.setContext( this.inputfield.context );
         this.tzinput.value.subscribe( function(){self.updateInputfiledValue();} );
         this.dateinput.value.subscribe( function(){self.updateInputfiledValue();} );
 
