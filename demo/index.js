@@ -266,7 +266,7 @@ define( [
         jsonfield:'{custom1:"val1", custom2:"val2}',
         selecttest:2,
         select2:'C',
-        datetimetz:'{ "tz":"Asia/Tokyo","date":"2023-09-01T00:00" }',
+        datetimetz:'{ "tz":"Asia/Tokyo", "date":"2023-09-01T00:00" }',
     };
 
 

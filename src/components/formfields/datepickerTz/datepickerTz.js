@@ -35,25 +35,32 @@ define([
         this.tzinput    = new Inputfield({name:'tz', type:'select', label:'', valueAccessor:'tz', options: params.inputfield.getFieldDefinition().timezones, validation:validationTZ}, this.source);
         this.dateinput  = new Inputfield({name:'date', type:'input', keyboardtype:'datetime-local', label:'', valueAccessor:'date', format:'YYYY-MM-DD', validation:validationDate }, this.source);
 
+        this.tzinput.value.subscribe( function(){self.updateInputfiledValue();} );
+        this.dateinput.value.subscribe( function(){self.updateInputfiledValue();} );
+
         this.inputfield.validate = function() {
             console.log("overridden validate() method");
             let res = self.tzinput.validate() && self.dateinput.validate();
 
             if( res ) {
-                //let v = self.form.getValues();
-                let d = self.dateinput.getValueForServer();//v.date;
-                let tz = self.tzinput.getValueForServer();//v.date;
-                let r = moment.tz(d, tz);
-                let u = r.clone().tz("UTC");
-                console.log("moment", r.format() );
-                let currentvalue = JSON.stringify( {
-                    tz: tz,
-                    date: u.format()
-                })
-                self.inputfield.value( currentvalue );
+                self.updateInputfiledValue();
             }
             return res;
         }
+    }
+
+    // take the values from date and timezone a generate JSON representation for the inputfield
+    p.updateInputfiledValue = function(){
+        let d = this.dateinput.getValueForServer();
+        let tz = this.tzinput.getValueForServer();
+        let r = moment.tz(d, tz);
+        let u = r.clone().tz("UTC");
+        console.log("moment", r.format() );
+        let currentvalue = JSON.stringify( {
+            tz: tz,
+            date: u.format()
+        })
+        this.inputfield.value( currentvalue );
     }
 
     p.initComponent = function ( node ) {
