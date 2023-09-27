@@ -21,7 +21,8 @@ define([
         this.tzSelectionactive = ko.observable(true);
         this.inputfield = params.inputfield;
 
-        this.source = JSON.parse( self.inputfield.value() || "{}" );
+        this.source = self.inputfield.value();
+        if(_.isString( self.inputfield.value() )) this.source = JSON.parse( self.inputfield.value() || "{}" );
 
         // we need to format the date (YYYY-MM-DDTHH:MM+HH:MM), because the inputfield expects a string in the format YYYY-MM-DDTHH:MM
         // also we assume we are getting an UTC date. Then we convert it to the given Timezone.
