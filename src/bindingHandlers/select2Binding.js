@@ -117,7 +117,9 @@ define([
                 var allBindings     = allBindingsAccessor();
                 var currentValue    = allBindings.value() ;
                 var bindingData     = ko.unwrap( valueAccessor() );
-                currentValue        = currentValue ? currentValue : window.$(el).val();
+                var hasRemoteOptions = bindingData.remoteOptions && bindingData.remoteOptions.url;
+                // for rempte options we MUST rely on the currentValue and not fallback to  window.$(el).val(). Otherwise clearing the formfield is not working
+                currentValue        = currentValue ? currentValue : hasRemoteOptions ? currentValue : window.$(el).val();
                 console.log( "+++ UPDATE" );
                 console.log( "currentValue:", currentValue );
                 // console.log( "bindingData.selectedOption:", bindingData.selectedOption() );

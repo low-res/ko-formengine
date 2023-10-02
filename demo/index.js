@@ -253,7 +253,7 @@ define( [
     this.formrows = this.fields.getFormRows('edit');
     this.formrows = this.fields.getFormRows('remoteoptions');
     this.formrows = this.fields.getFormRows('datetimetz');
-    //this.formrows = this.fields.getFormRows('checkboxes');
+    this.formrows = this.fields.getFormRows('remoteoptions');
 
     this.source = {
         col1:"col1value",
@@ -276,6 +276,11 @@ define( [
     this.form.addSubmitHandler( function( formvalues ) {
         console.log( "submitHandler", formvalues );
         self.formvalues( JSON.stringify(formvalues) );
+    });
+
+    this.form.addDismissHandler( function( formvalues ) {
+        console.log( "addDismissHandler", formvalues );
+        self.form.clear();
     });
 
 
