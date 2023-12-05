@@ -7,11 +7,11 @@
                     <button data-bind="click:$parent.unselectOption"  type="button" class="remove-btn">Remove item</button>
                 </li>
             </ul>
-            <input data-bind="textInput: searchterm, hasFocus: searchHasFocus" type="search" name="search_terms" class="searchterm" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" placeholder="Wählen Sie eine Option">
+            <input data-bind="textInput: searchterm, hasFocus: searchHasFocus, event: { keydown: handleKeydown }" type="search" name="search_terms" class="searchterm" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" placeholder="Wählen Sie eine Option">
         </div>
         <div class="options-dropdown" aria-expanded="false" data-bind="visible:componentIsActive">
             <ul data-bind="foreach: filteredOptions">
-                <li class="options-item" data-bind="text:$parent.getOptionLabel($data), click:$parent.selectOption"> </li>
+                <li class="options-item" data-bind="text:$parent.getOptionLabel($data), click:$parent.selectOption, css: { selected: $parent.highlightedOption() == $data }"> </li>
             </ul>
         </div>
     </div>
