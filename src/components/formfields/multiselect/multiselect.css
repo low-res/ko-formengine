@@ -1,0 +1,83 @@
+.multiselect-widget {
+  position: relative;
+}
+.multiselect-widget .current-selection {
+  padding: 3px;
+  border: 1px solid #e2e8f0;
+}
+.multiselect-widget .current-selection .tags-holder {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.multiselect-widget .current-selection .tags-holder .tag-item {
+  border-radius: 0.5rem;
+  background-color: #8bc6401a;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(139 198 64);
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0 0.25rem 0.25rem 0;
+}
+.multiselect-widget .current-selection .tags-holder .tag-item .remove-btn {
+  opacity: 0.6;
+  display: inline-block;
+  height: 0.75rem;
+  width: 0.75rem;
+  color: rgb(139 198 64);
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==);
+  background-size: 0.6em 0.6em;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border-width: 0px;
+  background-color: transparent;
+  background-position: center;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  text-indent: -9999px;
+}
+.multiselect-widget .current-selection .searchterm {
+  width: 100%;
+  border: none;
+}
+.multiselect-widget .options-dropdown {
+  list-style-type: none;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0%);
+  max-height: 20rem;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+}
+.multiselect-widget .options-dropdown.show {
+  display: block;
+}
+.multiselect-widget .options-dropdown ul {
+  margin: 0;
+  padding: 5px;
+  list-style-type: none;
+}
+.multiselect-widget .options-dropdown ul .options-item:hover {
+  background-color: #f7fafc;
+}
+.multiselect-widget .options-dropdown ul .options-item.selected {
+  background-color: #f7fafc;
+}
