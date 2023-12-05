@@ -5,13 +5,15 @@ define([
     "./components/formfields/uploadfield/uploadfield",
     "./components/formfields/customComponentJsonForm/customComponentJsonForm",
     "./components/formfields/datepickerTz/datepickerTz",
+    "./components/formfields/multiselect/multiselect",
     "./bindingHandlers/select2Binding"
-], function (ko, formcomponent, fieldcomponent, uploadcomponent, customComponentJsonForm,datepickerTz) {
+], function (ko, formcomponent, fieldcomponent, uploadcomponent, customComponentJsonForm,datepickerTz, multiselect) {
 
     if(!ko.components.isRegistered("ko-formengine-form")) ko.components.register("ko-formengine-form", formcomponent);
     if(!ko.components.isRegistered("ko-formengine-field")) ko.components.register("ko-formengine-field", fieldcomponent);
     if(!ko.components.isRegistered("ko-formengine-fileupload")) ko.components.register("ko-formengine-fileupload", uploadcomponent);
     if(!ko.components.isRegistered("custom-json-form")) ko.components.register("custom-json-form", customComponentJsonForm);
     if(!ko.components.isRegistered("ko-formengine-datetimetz")) ko.components.register("ko-formengine-datetimetz", datepickerTz);
+    if(!ko.components.isRegistered("ko-formengine-multiselect")) ko.components.register("ko-formengine-multiselect", multiselect);
 
 });

@@ -50,7 +50,7 @@ Custom components can be integrated with a fielddefinition like:
         ]
     }
 
-ifi you specify a **optionsValue** and **optionsText** attribute, the options will be generated from the valueAccessor.
+if you specify a **optionsValue** and **optionsText** attribute, the options will be generated from the valueAccessor.
 it could be a string or an function
 
         {

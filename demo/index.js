@@ -236,6 +236,28 @@ define( [
                 options: ["A", "B"],
                 labelprefix:'labelprefix'
             },
+            {
+                name:'multiselect',
+                label:'multiselect',
+                valueAccessor: 'select2',
+                type:'multiselect',
+                options: [
+                    {
+                        label:"A Label",
+                        value:"A"
+                    },
+                    {
+                        label:"B Label",
+                        value:"B"
+                    },
+                    {
+                        label:"C Label",
+                        value:"C"
+                    }
+                ],
+                optionsValue:'value',
+                optionsText:'label'
+            },
         ],
         collections:[
             {name:'edit', rows:[['col2', 'col1'],[ 'dep1', 'dep2'], ['timefield','customComponent','file','jsonfield','select2','selecttest']]},
@@ -246,7 +268,8 @@ define( [
             {name:'checkboxes', rows:[
                     ['checkboxes'],['checkboxes_prefix'],
                     ['radiobuttons'],['radiobuttons_prefix'],
-                ]}
+                ]},
+            {name:'multiselect', rows:[['multiselect']]}
         ]
     });
 
@@ -254,6 +277,7 @@ define( [
     this.formrows = this.fields.getFormRows('remoteoptions');
     this.formrows = this.fields.getFormRows('datetimetz');
     this.formrows = this.fields.getFormRows('remoteoptions');
+    this.formrows = this.fields.getFormRows('multiselect');
 
     this.source = {
         col1:"col1value",
@@ -265,7 +289,7 @@ define( [
         customComponet:'custom text',
         jsonfield:'{custom1:"val1", custom2:"val2}',
         selecttest:2,
-        select2:'C',
+        select2:['C','B'],
         datetimetz:'{ "tz":"Asia/Tokyo", "date":"2023-09-01T00:00" }',
     };
 

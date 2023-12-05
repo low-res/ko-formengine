@@ -169,6 +169,10 @@
         <!-- ko component: { name:'ko-formengine-datetimetz', params:{inputfield:inputfield, source:source} } --><!-- /ko -->
     <!-- /ko -->
 
+    <!-- ko if: inputfield.type=="multiselect" -->
+    <!-- ko component: { name:'ko-formengine-multiselect', params:{inputfield:inputfield, source:source} } --><!-- /ko -->
+    <!-- /ko -->
+
     <!-- ko if: inputfield.type=="component" -->
         <!-- ko component: { name:inputfield.fielddef.componentName, params:{inputfield:inputfield, source:source} } --><!-- /ko -->
     <!-- /ko -->

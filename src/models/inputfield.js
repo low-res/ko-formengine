@@ -195,7 +195,7 @@ define([
 
 
     p._needsArrayAsValue = function(){
-        return this.fielddef.type == "checkbox" || (this.fielddef.type == "select" && this.selectMultiple)
+        return this.fielddef.type == "checkbox" || this.fielddef.type == "multiselect" || (this.fielddef.type == "select" && this.selectMultiple)
     }
 
 
