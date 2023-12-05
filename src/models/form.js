@@ -169,7 +169,7 @@ define([
      * @private
      */
     p._handleDependendOptions = function( fielddef, inputfield, form ) {
-        if( (fielddef.type == "select" /*|| fielddef.type == "select2" */) && fielddef.dependenedOptions ) {
+        if( (fielddef.type == "multiselect" || fielddef.type == "select" /*|| fielddef.type == "select2" */) && fielddef.dependenedOptions ) {
 
             var f = _.bind( fielddef.dependenedOptions, inputfield, form );
             fielddef.options = ko.computed( f );

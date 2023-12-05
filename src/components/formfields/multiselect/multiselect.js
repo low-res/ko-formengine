@@ -12,23 +12,37 @@ define([
         var self= this;
 
         this.inputfield     = params.inputfield;
+
         this.source         = ko.utils.unwrapObservable(params.source);
-        this.options        = ko.observableArray( this.inputfield.getFieldDefinition().options);
+        let o = ko.utils.unwrapObservable( this.inputfield.getFieldDefinition().options );
+        console.log("inputfield", o);
+        this.options        = _.isArray(o) ? ko.observableArray( o ) : [];
         this.searchterm     = ko.observable("");
         this.searchHasFocus = ko.observable(false);
         this.componentIsActive = ko.observable(false);
 
         this.filteredOptions= ko.pureComputed( function () {
             var term = self.searchterm();
-            var res = self.options();
+
+            var res = self.inputfield.getFieldDefinition().options
+            if(_.isFunction( self.inputfield.getFieldDefinition().options )) {
+                res = self.inputfield.getFieldDefinition().options();
+            }
+
             if(term) {
                 res = _.filter( res, function ( option ) {
                     var label = self.getOptionLabel(option);
                     return label.toLowerCase().indexOf(term.toLowerCase()) > -1;
                 });
             }
+
+            res = _.filter( res, function ( option ) {
+                return self.selection.indexOf(option) == -1;
+            });
+
             return res;
         });
+
         this.selection = ko.observableArray();
         this.selection.subscribe( function(){
             self.inputfield.value( self.selection() );
@@ -68,14 +82,11 @@ define([
 
     p.selectOption = function( option ){
         this.selection.push(option);
-        this.options.remove(option);
     }
 
 
     p.unselectOption = function( option ){
         this.selection.remove(option);
-        this.options.push(option);
-        console.log("unselectOption", arguments);
     }
 
 
@@ -84,6 +95,7 @@ define([
         this.searchHasFocus(true);
         this.componentIsActive(true);
     }
+
 
     p.unfocus = function () {
         this.searchterm("");
@@ -108,7 +120,7 @@ define([
 
     p.getOptionLabel = function ( option ) {
         let optionsLabel = this.inputfield.getFieldDefinition().optionsText;
-        let labelprefix = this.inputfield.getFieldDefinition().labelprefix;
+        let labelprefix = this.inputfield.getFieldDefinition().labelprefix || "";
         if( optionsLabel ) {
             if(_.isString(optionsLabel)) {
                 return ko.utils.unwrapObservable(option[optionsLabel]);
@@ -119,7 +131,6 @@ define([
             return kopa.translate(labelprefix+option);
         }
     }
-
 
 
     return {
