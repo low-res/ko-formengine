@@ -116,9 +116,13 @@ define([
                 break;
             case "Enter":
                 this._selectHighlightedOption();
+                event.stopImmediatePropagation();
+                return false;
                 break;
             case "Escape":
                 this.unfocus();
+                event.stopImmediatePropagation();
+                return false;
                 break;
 
             default:
