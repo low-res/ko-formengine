@@ -15,7 +15,6 @@ define([
 
         this.source = ko.utils.unwrapObservable(params.source);
         let o = ko.utils.unwrapObservable(this.inputfield.getFieldDefinition().options);
-        console.log("inputfield", o);
         this.options = _.isArray(o) ? ko.observableArray(o) : [];
         this.searchterm = ko.observable("");
         this.searchHasFocus = ko.observable(false);
@@ -46,7 +45,10 @@ define([
 
         this.selection = ko.observableArray();
         this.selection.subscribe(function () {
-            self.inputfield.value(self.selection());
+            let values  = _.map(self.selection(), function (option) {
+                return self.getOptionValue( option );
+            });
+            self.inputfield.value( values );
         });
 
         // override native clear method of original inputfield
