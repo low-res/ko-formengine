@@ -20,6 +20,7 @@ define([
         this.searchHasFocus = ko.observable(false);
         this.componentIsActive = ko.observable(false);
         this.highlightedOption = ko.observable(null);
+        this.placholderLabel = kopa.translate('general.optionscaption');
 
         this.filteredOptions = ko.pureComputed(function () {
             var term = self.searchterm();
