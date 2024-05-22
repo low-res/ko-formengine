@@ -75,7 +75,7 @@ define([
 
 
     p.calculateCssClass = function () {
-        console.log( this.inputfield );
+        // console.log( this.inputfield );
         var classes = ['ko-formengine-field','type-'+this.inputfield.type];
         if(!this.inputfield.isValid()) classes.push('error');
         if(this.inputfield.getFieldDefinition().info) classes.push('hasLabelInfo');

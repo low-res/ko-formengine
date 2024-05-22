@@ -10,6 +10,10 @@
             <input data-bind="textInput: searchterm, hasFocus: searchHasFocus, event: { keydown: handleKeydown }" type="search" name="search_terms" class="searchterm" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" placeholder="{{placholderLabel}}">
         </div>
         <div class="options-dropdown" aria-expanded="false" data-bind="visible:componentIsActive">
+            <div class="actions">
+                <a data-bind="click:selectAllOptions" href="#">{{'multiselect.selectall' | translate }}</a>
+                <a data-bind="click:removeAllOptions" href="#">{{'multiselect.removeall' | translate }}</a>
+            </div>
             <ul data-bind="foreach: filteredOptions">
                 <li class="options-item" data-bind="text:$parent.getOptionLabel($data), click:$parent.selectOption, css: { selected: $parent.highlightedOption() == $data }"> </li>
             </ul>

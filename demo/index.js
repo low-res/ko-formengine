@@ -269,7 +269,7 @@ define( [
                     ['checkboxes'],['checkboxes_prefix'],
                     ['radiobuttons'],['radiobuttons_prefix'],
                 ]},
-            {name:'multiselect', rows:[['multiselect']]}
+            {name:'multiselect', rows:[['multiselect'], ['dep1']]}
         ]
     });
 
@@ -282,7 +282,7 @@ define( [
     this.source = {
         col1:"col1value",
         col2:"col 2 value",
-        dep1:null,
+        dep1:'A',
         dep2:null,
         file:null,
         timefield:'00:00',
