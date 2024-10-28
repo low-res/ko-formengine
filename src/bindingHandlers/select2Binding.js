@@ -145,7 +145,7 @@ define([
                     window.$(el).val(null).trigger('change');
                     bindingData.selectedOption( null );
                 }
-                if(currentOption && bindingData.selectedOption() != null && bindingData.selectedOption() != currentOption ) {
+                if(currentOption && bindingData.selectedOption() != currentOption ) {
                     console.log("set select2 value to ", currentOption);
                     bindingData.selectedOption( currentOption );
                 }

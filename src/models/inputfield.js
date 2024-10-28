@@ -92,6 +92,7 @@ define([
 
     p.setCurrentValue = function ( newValue ) {
         this.value( newValue );
+        if(this.select2Obs) this.select2Obs(newValue);
     }
 
 
