@@ -1,6 +1,7 @@
 <script>
     import { translate } from '../../core/config.js';
     import { unwrap } from 'ko-fielddefinitions/utils';
+    import { getOptionValue, getOptionLabel } from '../fieldHelpers.js';
 
     let { inputfield } = $props();
 
@@ -30,33 +31,18 @@
 
     // ─── Helpers ─────────────────────────────────────────────────────────────
 
-    function getOptionValue(option) {
-        const optionsValue = fielddef.optionsValue;
-        if (!optionsValue) return option;
-        if (typeof optionsValue === 'string') return option[optionsValue];
-        if (typeof optionsValue === 'function') return optionsValue(option, inputfield);
-        return option;
-    }
-
-    function getOptionLabel(option) {
-        const optionsText = fielddef.optionsText;
-        const labelprefix = fielddef.labelprefix ?? '';
-        if (optionsText) {
-            if (typeof optionsText === 'string') return option[optionsText] ?? '';
-            if (typeof optionsText === 'function') return optionsText(option, inputfield);
-        }
-        return translate(labelprefix + option);
-    }
+    const optVal = (o) => getOptionValue(o, fielddef, inputfield);
+    const optLabel = (o) => getOptionLabel(o, fielddef, inputfield);
 
     // ─── Filtered options (exclude already selected) ─────────────────────────
 
     let filteredOptions = $derived.by(() => {
         const term = searchterm.toLowerCase();
         return allOptions.filter(option => {
-            const isSelected = selection.some(s => getOptionValue(s) === getOptionValue(option));
+            const isSelected = selection.some(s => optVal(s) === optVal(option));
             if (isSelected) return false;
             if (!term) return true;
-            return getOptionLabel(option).toLowerCase().includes(term);
+            return optLabel(option).toLowerCase().includes(term);
         });
     });
 
@@ -66,7 +52,7 @@
 
     function pushToInputfield() {
         selfUpdating = true;
-        inputfield.value.set(selection.map(getOptionValue));
+        inputfield.value.set(selection.map(optVal));
         selfUpdating = false;
     }
 
@@ -79,7 +65,7 @@
 
             const opts = allOptions;
             const newSelection = newValues
-                .map(v => opts.find(o => getOptionValue(o) === v))
+                .map(v => opts.find(o => optVal(o) === v))
                 .filter(Boolean);
 
             selection = newSelection;
@@ -108,7 +94,7 @@
     }
 
     function unselectOption(option) {
-        selection = selection.filter(s => getOptionValue(s) !== getOptionValue(option));
+        selection = selection.filter(s => optVal(s) !== optVal(option));
         pushToInputfield();
     }
 
@@ -173,14 +159,14 @@
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class="fe-ms-box" onclick={open} onkeydown={handleKeydown} role="combobox" aria-expanded={isOpen} aria-controls={listboxId} tabindex="0">
         <ul class="fe-ms-tags">
-            {#each selection as option (getOptionValue(option))}
+            {#each selection as option (optVal(option))}
                 <li class="fe-ms-tag">
-                    <span>{getOptionLabel(option)}</span>
+                    <span>{optLabel(option)}</span>
                     <button
                         type="button"
                         class="fe-ms-tag-remove"
                         onclick={(e) => { e.stopPropagation(); unselectOption(option); }}
-                        aria-label="Remove {getOptionLabel(option)}"
+                        aria-label="Remove {optLabel(option)}"
                     >✕</button>
                 </li>
             {/each}
@@ -207,7 +193,7 @@
             </div>
 
             <ul class="fe-ms-options" id={listboxId} role="listbox">
-                {#each filteredOptions as option, i (getOptionValue(option))}
+                {#each filteredOptions as option, i (optVal(option))}
                     <!-- svelte-ignore a11y_click_events_have_key_events -->
                     <li
                         class="fe-ms-option"
@@ -216,7 +202,7 @@
                         role="option"
                         aria-selected={false}
                     >
-                        {getOptionLabel(option)}
+                        {optLabel(option)}
                     </li>
                 {/each}
 
