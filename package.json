@@ -1,58 +1,46 @@
 {
-  "name": "ko-formengine",
-  "version": "1.0.2",
+  "name": "@low-res/formengine",
+  "version": "2.0.0",
+  "description": "Framework-agnostic declarative form engine with Svelte 5 reference components",
+  "type": "module",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/low-res/ko-formengine.git"
   },
-  "license": "MIT",
-  "format": "amd",
-  "jspm": {
-    "main": "index",
-    "directories": {
-      "lib": "src",
-      "test": "tests"
-    },
-    "dependencies": {
-      "Eonasdan/bootstrap-datetimepicker": "github:Eonasdan/tempus-dominus@^4.17.47",
-      "knockout": "github:knockout/knockout@^3.5",
-      "lodash": "npm:lodash@^4.17",
-      "low-res/formater": "github:low-res/formater@master",
-      "low-res/ko-bs-bindings": "github:low-res/ko-bs-bindings@master",
-      "low-res/ko-fielddefinitions": "github:low-res/ko-fielddefinitions@master",
-      "low-res/ko-punches-additions": "github:low-res/ko-punches-additions@^2.0",
-      "low-res/ko-systemjsloader": "github:low-res/ko-systemjsloader@master",
-      "low-res/ko-utils": "github:low-res/ko-utils@master",
-      "low-res/translator": "github:low-res/translator@master",
-      "low-res/validator": "github:low-res/validator@master",
-      "moment": "npm:moment@^2.20",
-      "moment-timezone": "npm:moment-timezone@^0.5.40",
-      "postal": "npm:postal@^2.0",
-      "select2/select2": "github:select2/select2@^4.0",
-      "systemjs/plugin-css": "github:systemjs/plugin-css@^0.1.35",
-      "systemjs/plugin-text": "github:systemjs/plugin-text@^0.0.11",
-      "twbs/bootstrap": "github:twbs/bootstrap@^3.3"
-    },
-    "devDependencies": {
-      "jasmine-core": "npm:jasmine-core@^3.4",
-      "jquery": "npm:jquery@^3.4",
-      "karma": "npm:karma@^4.3",
-      "karma-chrome-launcher": "npm:karma-chrome-launcher@^3.1",
-      "karma-coverage": "npm:karma-coverage@^2.0",
-      "karma-jasmine": "npm:karma-jasmine@^2.0",
-      "karma-systemjs": "npm:karma-systemjs@^0.16.0"
-    }
+  "exports": {
+    ".": "./src/index.js",
+    "./svelte": "./src/svelte/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "dev": "vite demo",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.1.3",
+    "ko-fielddefinitions": "github:low-res/ko-fielddefinitions#es6Rewrite",
+    "@low-res/validator": "github:low-res/validator#es6rework",
+    "translator": "github:low-res/translator#es6rework",
+    "formater": "github:low-res/formater#es6rework"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "jasmine-core": "^2.99.1",
-    "jquery": "^3.2.1",
-    "jspm": "^0.16.54",
-    "karma": "^1.7.1",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.2",
-    "karma-jasmine": "^1.1.2",
-    "karma-systemjs": "^0.16.0",
-    "serve": "^10.1.1"
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "svelte": "^5.0.0",
+    "vite": "^5.0.0",
+    "vitest": "^3.0.0"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "svelte": {
+      "optional": true
+    }
   }
 }
