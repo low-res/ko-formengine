@@ -23,12 +23,13 @@ export class Form {
     /** @type {Function[]} */
     dismissHandlers = [];
 
-    #formRows;
+    /** @type {any[][]} */
+    formRows;
     #source;
     #dependencyUnsubs = [];
 
     constructor(formRows, source) {
-        this.#formRows = formRows;
+        this.formRows = formRows;
         this.#source = source;
         this.#prepareInputfieldModels();
     }
@@ -132,7 +133,7 @@ export class Form {
      */
     #prepareInputfieldModels() {
         const fields = [];
-        const rows = unwrap(this.#formRows) ?? [];
+        const rows = unwrap(this.formRows) ?? [];
 
         for (const row of rows) {
             for (const cell of row) {
