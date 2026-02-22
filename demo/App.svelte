@@ -2,6 +2,7 @@
     import FieldsCollection from 'ko-fielddefinitions/fieldsCollection';
     import { Form } from '../src/core/Form.js';
     import { GenericForm } from '../src/svelte/index.js';
+    import CustomLayoutForm from './CustomLayoutForm.svelte';
 
     // ─── Tab 1: Text inputs ───────────────────────────────────────────────────
 
@@ -275,6 +276,44 @@
         ]
     });
 
+    // ─── Tab 5: Custom Layout ─────────────────────────────────────────────────
+
+    const COUNTRY_OPTIONS = [
+        { label: 'Germany',     value: 'de' },
+        { label: 'Austria',     value: 'at' },
+        { label: 'Switzerland', value: 'ch' },
+        { label: 'Other',       value: 'other' },
+    ];
+
+    const profileFields = new FieldsCollection({
+        fields: [
+            { name: 'first_name', label: 'First Name', valueAccessor: 'first_name', type: 'input', validation: 'required' },
+            { name: 'last_name',  label: 'Last Name',  valueAccessor: 'last_name',  type: 'input', validation: 'required' },
+            { name: 'email',      label: 'E-Mail',     valueAccessor: 'email',      type: 'input', keyboardtype: 'email', validation: 'required|email' },
+            { name: 'street',     label: 'Street',     valueAccessor: 'street',     type: 'input' },
+            { name: 'zip',        label: 'ZIP',        valueAccessor: 'zip',        type: 'input' },
+            { name: 'city',       label: 'City',       valueAccessor: 'city',       type: 'input' },
+            { name: 'country',    label: 'Country',    valueAccessor: 'country',    type: 'select',
+                options: COUNTRY_OPTIONS, optionsValue: 'value', optionsText: 'label',
+                optionscaption: 'general.optionscaption',
+            },
+            { name: 'bio',        label: 'Short Bio',  valueAccessor: 'bio',        type: 'text', placeholder: 'Tell us about yourself…' },
+            { name: 'website',    label: 'Website',    valueAccessor: 'website',    type: 'input', placeholder: 'https://…' },
+        ],
+        collections: [{
+            name: 'all',
+            rows: [
+                ['first_name', 'last_name'],
+                ['email'],
+                ['street'],
+                ['zip', 'city'],
+                ['country'],
+                ['bio'],
+                ['website'],
+            ]
+        }]
+    });
+
     // ─── Forms ────────────────────────────────────────────────────────────────
 
     const source = {
@@ -293,10 +332,11 @@
     const dateForm     = new Form(dateFields.getFormRows('all'),     source);
     const selectForm   = new Form(selectFields.getFormRows('all'),   source);
     const advancedForm = new Form(advancedFields.getFormRows('all'), source);
+    const profileForm  = new Form(profileFields.getFormRows('all'),  { first_name: 'Jane', last_name: 'Doe' });
 
     let result = $state(null);
 
-    [textForm, dateForm, selectForm, advancedForm].forEach(form => {
+    [textForm, dateForm, selectForm, advancedForm, profileForm].forEach(form => {
         form.addSubmitHandler(values => { result = values; });
     });
 
@@ -311,6 +351,7 @@
         <button class:active={activeTab === 'datetime'} onclick={() => { activeTab = 'datetime'; result = null; }}>Date & Time</button>
         <button class:active={activeTab === 'select'}   onclick={() => { activeTab = 'select';   result = null; }}>Selection</button>
         <button class:active={activeTab === 'advanced'} onclick={() => { activeTab = 'advanced'; result = null; }}>Advanced</button>
+        <button class:active={activeTab === 'custom'}   onclick={() => { activeTab = 'custom';   result = null; }}>Custom Layout</button>
     </nav>
 
     <div class="form-container">
@@ -327,6 +368,8 @@
             </div>
         {:else if activeTab === 'advanced'}
             <GenericForm form={advancedForm} />
+        {:else if activeTab === 'custom'}
+            <CustomLayoutForm form={profileForm} />
         {/if}
     </div>
 
