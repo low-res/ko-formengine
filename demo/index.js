@@ -15,6 +15,8 @@ define( [
             {
                 name: 'col1',
                 label: 'col1 label',
+                popover:'popover',
+                info:'label',
                 valueAccessor: 'col1',
                 validation:"required"
             },

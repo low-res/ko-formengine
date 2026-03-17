@@ -59,7 +59,7 @@
         onchange={onSingleChange}
     >
         {#if fielddef.optionscaption}
-            <option value="" disabled selected={value == null || value === ''}>
+            <option value="" selected={value == null || value === ''}>
                 {translate(fielddef.optionscaption)}
             </option>
         {/if}
